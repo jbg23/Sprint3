@@ -41,14 +41,6 @@ stada = {(dal, rad): (dal, rad)
 #Hvar er tómi ?
 (tomurD, tomurR)= tomur
 
-#Byrjum leikinn og birtum upphaflega mynd
-
-pygame.init()
-display = pygame.display.set_mode(myndastaerd)
-pygame.display.set_caption("Púslaðu Mikka og félaga!")
-display.blit(mynd, (0, 0))
-pygame.display.flip()
-
 class pusluspil:
     def __init__(self):
         print('smidur púsluspil')
@@ -57,8 +49,9 @@ class pusluspil:
         print('Velkominn í annað borð.\nTil að vinna borðið þarft þú að púsla púslið.\nGangi þér vel')
         self.pusluspilrun()
 
-    #Skipta á tóma púslinu og púsli (d,r)
+        #Skipta á tóma púslinu og púsli (d,r)
     def skipti (self, d,r):
+        print('test3')
         global tomurD
         global tomurR
     #    print('window_stada:= ', stada[(d,r)])
@@ -68,16 +61,30 @@ class pusluspil:
         stada[(d,r)] = tomur
         (tomurD, tomurR) = (d,r)
         pygame.display.flip()
+        print('test4')
 
-    #Rugla púslbitum
+        #Rugla púslbitum
     def rugla(self):
         for i in range(50):
             d = random.randint(0, dalkar-1)
             r = random.randint(0, radir-1)
-            skipti(d,r)
+            print('test2')
+            self.skipti(d,r)
 
     def pusluspilrun(self):
-    #Hreyfa púsl með mús
+        #Byrjum leikinn og birtum upphaflega mynd
+        pygame.init()
+        display = pygame.display.set_mode(myndastaerd)
+        pygame.display.set_caption("Púslaðu Mikka og félaga!")
+        display.blit(mynd, (0, 0))
+        pygame.display.flip()
+
+        #kalla á skipti
+        #self.skipti()
+        #kalla á rugla
+        #self.rugla()
+
+        #Hreyfa púsl með mús
         byrjun = True
         synilausn = False
         while True:
@@ -87,7 +94,8 @@ class pusluspil:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if byrjun == True: #Rugla eftir að ýtt er á mús í fyrsta sinn
-                    rugla()
+                    print('test1')
+                    self.rugla()
                     byrjun = False
                 else:
                     erSigur = 0
@@ -116,6 +124,8 @@ class pusluspil:
                 pygame.display.flip()
                 synilausn = False
         pygame.quit()
+
+
 
 def main():
     pass
