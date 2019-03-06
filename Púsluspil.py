@@ -123,4 +123,4 @@ def main():
 if __name__== '__main__':
     main()
 else:
-    print('þú ert innportuð í Púsluspil')
+    print('þú ert innportuð í púsluspil')
