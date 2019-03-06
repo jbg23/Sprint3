@@ -1,5 +1,6 @@
 from veljalit import Veljalit
 from Spurningaleikur import spurningaleikur
+from Púsluspil import pusluspil
 
 #Segja velkominn, viltu spila
 #Velja lit á karakter
@@ -20,10 +21,13 @@ def main():
         litur= Veljalit()
         litur.veljalit_litur(litur)
 
-        #Viltu hefja leik? Já eða nei
+        #Kalla á spurningaleik
         bord1= spurningaleikur()
         bord1.spurningar_bord1(bord1)
 
+        #Kalla á púsluspil
+        bord2 = pusluspil()
+        bord2.pusluspil_bord2(bord2)
 
 if __name__=='__main__':
     main()
