@@ -91,7 +91,6 @@ class Pacman:
         pepperoni = True
 
         bakgrunnur.fill(gulur)
-
         stigafjoldi()
         pygame.display.flip()
         hradi.tick(10)
