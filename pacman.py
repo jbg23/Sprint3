@@ -32,6 +32,18 @@ class Pacman:
         self.breyta1 = breyta1
         self.breyta2 = breyta2
 
+    def gameOver():
+        letur =  pygame.font.SysFont('Arial', 24, bold=False, italic=False)
+        GO_bakg = letur.render("Þú tapaðir!", True, raudur)
+        GOrect = GO_bakg.get_rect()
+        GOrect.midtop = (360,15)
+        bakgrunnur.blit(GO_bakg, GOrect)
+        stigafjoldi(0)
+        pygame.display.flip()
+        time.sleep(2)
+        pygame.quit()
+        sys.exit()
+
     def stigafjoldi(val=1):
         pygame.init()
         skrift = pygame.font.SysFont('Arial', 24, bold=False, italic=False)
@@ -89,6 +101,9 @@ class Pacman:
         if pepperoni == False:
             pepperoni_stadsetning = [random.randrange(1,50)*10, random.randrange(1,50)*10]
         pepperoni = True
+
+
+
 
         bakgrunnur.fill(gulur)
         stigafjoldi()
