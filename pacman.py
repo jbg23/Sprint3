@@ -30,16 +30,20 @@ stig = 0
 class Pacman:
     def __init__(self, breyta1, breyta2):
         self.breyta1 = breyta1
-        self.breyta2 = breyta2
 
     def gameOver():
-        letur =  pygame.font.SysFont('Arial', 24, bold=False, italic=False)
+        letur =  pygame.font.SysFont('Arial', 72)
         GO_bakg = letur.render("Þú tapaðir!", True, raudur)
         GOrect = GO_bakg.get_rect()
         GOrect.midtop = (360,15)
         bakgrunnur.blit(GO_bakg, GOrect)
         stigafjoldi(0)
         pygame.display.flip()
+        while True:
+            event = pygame.event.wait()
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
         time.sleep(2)
         pygame.quit()
         sys.exit()
@@ -48,13 +52,13 @@ class Pacman:
         pygame.init()
         skrift = pygame.font.SysFont('Arial', 24, bold=False, italic=False)
         skrift_bakg = skrift.render("Stig : {0}" .format(stig), True, svartur)
-        rect = skrift_bakg.get_rect()
+        Srect = skrift_bakg.get_rect()
         if val == 1:
-            rect.midtop = (80,10)
+            Srect.midtop = (80,10)
         else:
-            rect.midtop = (360,150)
+            Srect.midtop = (360,150)
 
-        bakgrunnur.blit(skrift_bakg , rect)
+        bakgrunnur.blit(skrift_bakg , Srect)
 
     while True:
         for event in pygame.event.get():
@@ -93,7 +97,7 @@ class Pacman:
 
         mus_staerd.insert(0,list(mus_stadsetning))
         if mus_stadsetning[0] == pepperoni_stadsetning[0] and mus_stadsetning[1] == pepperoni_stadsetning[1]:
-            stig +=1
+            stig +=10
             pepperoni = False
         else:
             mus_staerd.pop()
@@ -102,10 +106,16 @@ class Pacman:
             pepperoni_stadsetning = [random.randrange(1,50)*10, random.randrange(1,50)*10]
         pepperoni = True
 
-
-
-
         bakgrunnur.fill(gulur)
+        for pos in mus_staerd:
+            pygame.draw.rect(bakgrunnur, blar, pygame.Rect(mus_stadsetning[0], mus_stadsetning[1], 10, 10))
+        pygame.draw.rect(bakgrunnur, raudur, pygame.Rect(pepperoni_stadsetning[0], pepperoni_stadsetning[1], 10, 10))
+
+        if mus_stadsetning[0] > 500 or mus_stadsetning[0] < 0:
+            gameOver()
+        if mus_stadsetning[1] > 500 or mus_stadsetning[1] < 0:
+            gameOver()
+
         stigafjoldi()
         pygame.display.flip()
         hradi.tick(10)
