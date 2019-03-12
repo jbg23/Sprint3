@@ -37,9 +37,9 @@ mus_staerd = [[100,50]]
 pepperoni_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10] #Random staðsetning á pepperoni
 pepperoni = True
 
-kisa1_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10] #Random staðsetning á kisum
-kisa2_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10]
-kisa3_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10]
+kisa1 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randrange(1,4)] #Random staðsetning og stefna fyrir kisur
+kisa2 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randrange(1,4)]
+kisa3 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randrange (1,4)]
 
 att = "RIGHT"
 breytt_att = att
@@ -163,6 +163,12 @@ while True:
         gameOver()
     if mus_stadsetning[1] > 500 or mus_stadsetning[1] < 0:
         gameOver()
+
+    #Hreyfa kisur
+
+    
+
+
 
     stigafjoldi(1)
     pygame.display.flip()
