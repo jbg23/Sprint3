@@ -33,7 +33,7 @@ class Eltingaleikur:
         raudMus = pygame.image.load("RaudMina.png")
         raudMus = pygame.transform.scale(raudMus, (40,40))
 
-        tommi = pygame.image.load("Myndir/tommi.png")
+        tommi = pygame.image.load("kisi.png")
         tommi = pygame.transform.scale(tommi, (40,40))
 
 
