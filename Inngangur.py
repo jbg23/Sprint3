@@ -29,5 +29,9 @@ def main():
         bord2 = pusluspil()
         bord2.pusluspil_bord2(bord2)
 
+        #Kalla á kisuborð
+        bord4 = Eltingaleikur()
+        bord4.start_setup(bord4)
+
 if __name__=='__main__':
     main()
