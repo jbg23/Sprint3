@@ -55,7 +55,7 @@ class spurningaleikur:
                 break
             if fjspurninga == 10:
                 print("Þú náðir því miður ekki fjórum spurningum réttum og verður því að hefja leikinn aftur.")
-        spurningaleikur(spurningar)
+        #spurningaleikur(spurningar)
 
 def main():
     pass
