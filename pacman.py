@@ -3,6 +3,11 @@ import sys
 import time
 import random
 
+"""class Bord4:
+    def __init__(self):
+        pass"""
+
+        #def start_setup(self):
 bakgrunnur = pygame.display.set_mode((500, 500))
 pygame.display.set_caption("Safnaðu pepperóníunum!")
 
@@ -28,6 +33,9 @@ bleikMus = pygame.transform.scale(bleikMus, (40,40))
 raudMus = pygame.image.load("RaudMina.png")
 raudMus = pygame.transform.scale(raudMus, (40,40))
 
+tommi = pygame.image.load("Myndir/tommi.png")
+tommi = pygame.transform.scale(tommi, (40,40))
+
 
 hradi = pygame.time.Clock()
 
@@ -37,15 +45,57 @@ mus_staerd = [[100,50]]
 pepperoni_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10] #Random staðsetning á pepperoni
 pepperoni = True
 
-kisa1 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randrange(1,4)] #Random staðsetning og stefna fyrir kisur
-kisa2 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randrange(1,4)]
-kisa3 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randrange (1,4)]
+kisa1 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)] #Random staðsetning og stefna fyrir kisur
+kisa2 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
+kisa3 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
 
 att = "RIGHT"
 breytt_att = att
 
 stig = 0
 
+def hreyfaKisu(kisa):
+    rand = random.randint(1,20)
+    if kisa[2] == 1:
+        if kisa[0] + 10 > 460:
+            kisa[2] = 2
+            kisa[0] -= 10
+        else:
+            kisa[0] += 10
+        if rand == 1:
+            kisa[2] = 3
+        elif rand == 2:
+            kisa[2] = 4
+    elif kisa[2] == 2:
+        if kisa[0] - 10 < 0:
+            kisa[2] = 1
+            kisa[0] += 10
+        else:
+            kisa[0] -= 10
+        if rand == 1:
+            kisa[2] = 3
+        elif rand == 2:
+            kisa[2] = 4
+    elif kisa[2] == 3:
+        if kisa[1] - 10 < 0:
+            kisa[2] = 4
+            kisa[1] += 10
+        else:
+            kisa[1] -= 10
+        if rand == 1:
+            kisa[2] = 1
+        elif rand == 2:
+            kisa[2] = 2
+    elif kisa[2] == 4:
+        if kisa[1] + 10 > 460:
+            kisa[2] = 3
+            kisa[1] -= 10
+        else:
+            kisa[1] += 10
+        if rand == 1:
+            kisa[2] = 1
+        elif rand == 2:
+            kisa[2] = 2
 
 def stigafjoldi(val):
     pygame.init()
@@ -95,6 +145,7 @@ def nextLevel():
     sys.exit()
     #Halda áfram í næsta borð eða klára leikinn
 
+#def byrja(self):
 while True:
     #Heldur myndinni á skjá þar til leiknum er lokað
     for event in pygame.event.get():
@@ -154,21 +205,28 @@ while True:
 
     #Setjum myndir, mús og pepperoni á bakgrunn
     bakgrunnur.fill(gulur)
-    for pos in mus_staerd:
-        bakgrunnur.blit(bleikMus, pygame.Rect(mus_stadsetning[0], mus_stadsetning[1], 10, 10))
-    bakgrunnur.blit(pepp_mynd, pygame.Rect(pepperoni_stadsetning[0], pepperoni_stadsetning[1], 10, 10))
+    bakgrunnur.blit(bleikMus, pygame.Rect(mus_stadsetning[0], mus_stadsetning[1], 40, 40))
+    bakgrunnur.blit(pepp_mynd, pygame.Rect(pepperoni_stadsetning[0], pepperoni_stadsetning[1], 20, 20))
+    bakgrunnur.blit(tommi, pygame.Rect(kisa1[0], kisa1[1], 40, 40))
+    bakgrunnur.blit(tommi, pygame.Rect(kisa2[0], kisa2[1], 40, 40))
+    bakgrunnur.blit(tommi, pygame.Rect(kisa3[0], kisa3[1], 40, 40))
 
     #Kallar á gameOver fall ef mús klessir á vegg
-    if mus_stadsetning[0] > 500 or mus_stadsetning[0] < 0:
+    if mus_stadsetning[0] > 460 or mus_stadsetning[0] < 0 or mus_stadsetning[1] > 460 or mus_stadsetning[1] < 0:
         gameOver()
-    if mus_stadsetning[1] > 500 or mus_stadsetning[1] < 0:
+
+    #Kallar á gameOver fall ef mús klessir á kisur
+    if (kisa1[0]+30 >= mus_stadsetning[0] and kisa1[0] <= mus_stadsetning[0]+30) and (kisa1[1]+30 >= mus_stadsetning[1] and kisa1[1] <= mus_stadsetning[1]+30):
+        gameOver()
+    if (kisa2[0]+30 >= mus_stadsetning[0] and kisa2[0] <= mus_stadsetning[0]+30) and (kisa2[1]+30 >= mus_stadsetning[1] and kisa2[1] <= mus_stadsetning[1]+30):
+        gameOver()
+    if (kisa3[0]+30 >= mus_stadsetning[0] and kisa3[0] <= mus_stadsetning[0]+30) and (kisa3[1]+30 >= mus_stadsetning[1] and kisa3[1] <= mus_stadsetning[1]+30):
         gameOver()
 
     #Hreyfa kisur
-
-    
-
-
+    hreyfaKisu(kisa1)
+    hreyfaKisu(kisa2)
+    hreyfaKisu(kisa3)
 
     stigafjoldi(1)
     pygame.display.flip()
