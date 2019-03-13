@@ -42,7 +42,6 @@ stada = {(dal, rad): (dal, rad)
 (tomurD, tomurR)= tomur
 
 #Byrjum leikinn og birtum upphaflega mynd
-
 pygame.init()
 display = pygame.display.set_mode(myndastaerd)
 pygame.display.set_caption("Púslaðu Mikka og félaga!")
