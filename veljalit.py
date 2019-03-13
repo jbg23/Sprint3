@@ -10,7 +10,7 @@ class Veljalit:
     def veljalitinn(self):
         #Bjóða upp á að velja leikmann -> sýna myndir -> velja leikmann ->næsta borð
         print('Veldu þann lit á Mínu sem þú vilt vera')
-        Bla = Image.open('BlaMina.png')
+        +Bla = Image.open('BlaMina.png')
         Bla.show()
         Bleik = Image.open('BleikMina.png')
         Bleik.show()
