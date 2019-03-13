@@ -7,6 +7,9 @@ Uppfært V2019 (ingolfuh@hi.is)
 """
 
 import pygame
+from veljalit import Veljalit
+from Spurningaleikur import spurningaleikur
+from Púsluspil import pusluspil
 
 #Define some parameters
 breidd = 800
@@ -119,7 +122,9 @@ def takkar(text,x,y,breidd,haed,litur1,litur2,action=None):
             if action == "StartLevel1":
                 level= 1
                 return
-            elif action == 'StartLevel1B': pass
+            elif action == 'StartLevel1B':
+                litur= Veljalit()
+                litur.veljalit_litur(litur)
             elif action == 'quit':
                 level= 0
     else:
@@ -152,6 +157,8 @@ def main():
                 music('tonlist.mp3')
                 state_tune =1
             level1Intro()
+
+
         pygame.display.update()
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
