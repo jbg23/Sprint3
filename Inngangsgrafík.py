@@ -94,6 +94,14 @@ def level1Intro():
     messageDisplayLevel('Viltu velja leikmann?', 3)
     takkar("Já!",150,450,150,75,GRAY,RED,'StartLevel1B')
     takkar("Nei",550,450,150,75,GRAY,RED,'quit')
+
+def velja_leikmann():
+    picture(bakgrunnurGameIntro)
+    draw_stick_figure(screen)
+    messageDisplayLevel('Veldu leikmann', 3)
+    takkar("Blá",150,450,150,75,GRAY,RED,'StartLevel1B')
+    takkar("Blá",350,450,150,75,GRAY,RED,'StartLevel1B')
+    takkar("Bleik",550,450,150,75,GRAY,RED,'quit')
 #Display text on board
 def messageDisplayLevel(text,lina):
     if level ==0:
@@ -157,6 +165,8 @@ def main():
                 music('tonlist.mp3')
                 state_tune =1
             level1Intro()
+
+
 
 
         pygame.display.update()
