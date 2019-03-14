@@ -1,6 +1,7 @@
 import sqlite3
 import pygame
 import time
+pygame.init()
 
 class Question:
 
@@ -212,8 +213,3 @@ class Question:
         self.conn.close()
         pygame.quit()
         quit()
-
-test = Question()
-test.gameIntro()
-test.gameLoop()
-test.__del__()
