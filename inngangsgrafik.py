@@ -23,7 +23,6 @@ breidd2 = 800
 haed2 = 600
 mynd = pygame.load('mikkimina_valmynd.png')
 
-
 #Skjár
 size = [breidd,haed]
 display_breidd = 800
@@ -60,7 +59,6 @@ def setup():
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("Viltu vera Mína eða Mikki?")
     clock = pygame.time.Clock()
-
 
 #Draw figure cursor
 def draw_stick_figure(screen):
@@ -107,7 +105,6 @@ def level1Intro():
     messageDisplayLevel('Viltu velja leikmann?', 3)
     takkar("Já!",150,450,150,75,GRAY,RED,'StartLevel1B')
     takkar("Nei",550,450,150,75,GRAY,RED,'quit')
-
 
 def velja_leikmann():
     picture(mynd)
