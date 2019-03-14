@@ -1,6 +1,7 @@
 import sqlite3
 import pygame
 import time
+pygame.init()
 
 class Question:
 
@@ -13,7 +14,7 @@ class Question:
     #pygame.mixer.music.play(-1)
 
     #Tengingar vid gagnagrunn
-    conn = sqlite3.connect('spurningar.db')
+    conn = sqlite3.connect('spurningar_svor.db.sql')
     c = conn.cursor()
     Stig = 0
     level = 0
@@ -25,16 +26,13 @@ class Question:
         pass
         #loka a gagnagrunn her?
 
-
     def gameIntro(self):
-
         intro = True
         while intro:
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    quit()
+                    sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
                         self.level = 1
@@ -47,27 +45,25 @@ class Question:
                     if event.key == pygame.K_3:
                         self.level = 3
                         intro = False
-
                     if event.key == pygame.K_h:
                         pygame.quit()
                         quit()
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
             self.screenMessage("Velkomin/nn i spurningarleik", self.red, -120, size = "medium" )
             self.screenMessage("Bisamrottunnar", self.red, -70, size = "medium" )
-            self.screenMessage("Thu tharft ad svara 5 spurningum rett i rod til ad komast afram", self.green, -20)
-            self.screenMessage("Veldu erfidleikastig fyrir spurningarnar", self.green,10)
-            self.screenMessage("Ýttu á 1, 2 eða 3", self.red, 50, size = "medium")
+            self.screenMessage("Thu tharft ad svara 4 spurningum rett i rod til ad komast afram", self.green, -20)
+            #self.screenMessage("Veldu erfidleikastig fyrir spurningarnar", self.green,10)
+            #self.screenMessage("Ýttu á 1, 2 eða 3", self.red, 50, size = "medium")
 
 
             #Takkar
-            #pygame.draw.rect(self.gameDisplay ,self.green,(150,400,100,50))
-            #pygame.draw.rect(self.gameDisplay ,self.blue,(350,400,100,50))
-            #pygame.draw.rect(self.gameDisplay ,self.red,(550,400,100,50))
+            pygame.draw.rect(self.gameDisplay ,self.green,(150,400,100,50))
+            pygame.draw.rect(self.gameDisplay ,self.blue,(350,400,100,50))
+            pygame.draw.rect(self.gameDisplay ,self.red,(550,400,100,50))
 
-            #self.textBox('1', self.white, 150, 400, 100, 50, size = 'medium')
-            #self.textBox('2', self.white, 350, 400, 100, 50, size = 'medium')
-            #self.textBox('3', self.white, 550, 400, 100, 50, size = 'medium')
-
+            self.textBox('1', self.white, 150, 400, 100, 50, size = 'medium')
+            self.textBox('2', self.white, 350, 400, 100, 50, size = 'medium')
+            self.textBox('3', self.white, 550, 400, 100, 50, size = 'medium')
 
             pygame.display.update()
             self.clock.tick(15)
@@ -93,7 +89,7 @@ class Question:
 
     #Athugar hvort leikmadur hefur unnid
     def checkScore(self):
-        if(self.Stig == 5):
+        if(self.Stig == 4):
             self.Stig = 0
             self.gameLoop(gameWin = True)
 
@@ -155,17 +151,13 @@ class Question:
                     self.clock.tick(5)
                     pygame.display.update()
 
-
-
-
-
     def gameLoop(self, gameWin = False):
         gameExit =  False
 
         while not gameExit:
 
             if gameWin == True:
-                #self.gameDisplay.fill(self.white)
+                self.gameDisplay.fill(self.white)
                 self.gameDisplay.blit(self.image2, [0,0, 800, 600])
                 self.screenMessage("THU VANNST!!", self.red, -50, size = "large")
                 self.screenMessage("S til ad spila aftur, h til ad hætta, a fyrir næsta borð ", self.red, 50, size = "small")
@@ -212,8 +204,3 @@ class Question:
         self.conn.close()
         pygame.quit()
         quit()
-
-test = Question()
-test.gameIntro()
-test.gameLoop()
-test.__del__()
