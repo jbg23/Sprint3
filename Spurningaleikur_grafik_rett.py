@@ -19,9 +19,6 @@ class Question():
     small = pygame.font.SysFont("algerian", 35)
     medium = pygame.font.SysFont("algerian", 50)
     large = pygame.font.SysFont("broadway", 50)
-    pygame.font.init()
-    myfont = pygame.font.SysFont('Comic Sans MS', 30)
-
 
     display_width = 800
     display_height = 600
@@ -31,13 +28,22 @@ class Question():
     #Byrjum leikinn og birtum upphaflega mynd
     pygame.display.set_caption('Spurningaleikur')
     image = pygame.image.load('bakgrunnur.png')
+    tmp=False
+    Svar=""
 
     def __init__(self):
         print('smidur Spurningaleikur')
+        self.x1=0
+        self.count=0
 
     #def __del__(self):
         #pass
         #loka a gagnagrunn?
+
+    def textBox(self, msg, color, x, y, width, height, size = "small"):
+        textSurf, textRect = self.texts(msg,color,size)
+        textRect.center = ((x+width/2), (y+height/2))
+        self.gameDisplay.blit(textSurf, textRect)
 
     def texts(self, text, color, size):
         if size == "small":
@@ -72,13 +78,17 @@ class Question():
             self.screenMessage("völundarmúsarinnar", self.red, -70, size = "medium" )
             self.screenMessage("Þú þarft að svara 4 spurningum rétt i röð til að komast áfram.", self.red, +80, size = "small")
             self.screenMessage("Ýttu á 1 til að byrja", self.red, +110, size = "small")
-            #self.music('tonlist.mp3')
             pygame.display.update()
 
     #Synir fjolda rettra svara i rod
     def gameScore(self):
         text = self.small.render("Rétt svör í röð: " + str(self.Stig), True, self.black)
         self.gameDisplay.blit(text, [0,0])
+        if self.Svar=="Rangt":col=self.red
+        else: col=self.green
+        text = self.small.render("Svarið var: "+ self.Svar, True, col)
+        self.gameDisplay.blit(text, [320,400])
+        pygame.display.update()
 
     #Saekir spurningar ur gagnagrunninum
     def getQuestion(self, level):
@@ -101,21 +111,21 @@ class Question():
     #Athugar hvort leikmadur setti inn rett svar
     def checkAnswer(self,SpID,svar):
         self.c.execute('SELECT rettSvar FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
-        self.gameDisplay.fill(self.white)
         if (svar == ''.join(map(str,(self.c.fetchone())))):
+            #self.screenMessage("Rett svar",self.red, +100, size = "large")
+            self.tmp=True
+            self.Svar= "Rétt"
             self.Stig += 1
-            self.screenMessage("Rett svar!!",self.green, -20, size = "large")
-            pygame.display.update()
             self.checkScore()
         else:
-            self.screenMessage("Rangt svar!",self.red, -20, size = "large")
+        #    self.screenMessage("Rangt svar!",self.red, -20, size = "large")
+            self.tmp=False
+            self.Svar= "Rangt"
             self.Stig = 0
-            pygame.display.update()
-        time.sleep(2)
+        pygame.display.update()
 
     #Faera thessa adferd inni gameLoop??
     def playGame(self,level):
-
         x = self.getQuestion(self.level)
 
         for i in range(0,len(x)):
@@ -127,6 +137,12 @@ class Question():
             self.screenMessage(abcd[1],self.red, -60)
             self.screenMessage(abcd[2],self.red, -30)
             self.screenMessage(abcd[3],self.red,  0)
+            """
+            if self.tmp==True and i>0:
+                self.screenMessage("Svarið var Rétt",self.green, -180, size = "large")
+            elif self.tmp==False and i>0:
+                self.screenMessage("Svarið var Rangt",self.red, -180, size = "large")
+            """
             pygame.display.update()
 
             while inGame:
@@ -152,18 +168,19 @@ class Question():
                             self.checkAnswer(x[i][1], 'd')
                             inGame = False
                     self.gameScore()
-                    #self.clock.tick(0)
-                    pygame.display.update()
 
     def gameLoop(self, gameWin = False):
         gameExit =  False
 
         while not gameExit:
-
+            self.gameDisplay.blit(self.image, [0,0, 800, 600])
+            self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
+            pygame.display.update()
+            print('hallo33')
             if gameWin == True:
                 self.gameDisplay.blit(self.image, [0,0, 800, 600])
-                self.screenMessage("ÞÚ VANNST!!", self.red, -50, size = "large")
-                self.screenMessage("Ýttu á s til að spila aftur, h til ad hætta, n fyrir næsta borð ", self.red, 50, size = "small")
+                self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
+                self.screenMessage("Ýttu á s til ad spila aftur, h til ad hætta, n fyrir næsta borð ", self.red, 50, size = "small")
                 pygame.display.update()
 
                 while gameWin == True:
@@ -206,4 +223,5 @@ class Question():
 
 bord5 = Question()
 bord5.gameIntro()
+#pygame.display.update()
 bord5.gameLoop()

@@ -21,7 +21,7 @@ level=0
 #Myndir fyrir val á leikmanni
 breidd2 = 800
 haed2 = 600
-mynd = pygame.load('mikkimina_valmynd.png')
+mynd = pygame.image.load('mikkimina_valmynd.png')
 
 #Skjár
 size = [breidd,haed]
@@ -60,7 +60,7 @@ def setup():
     pygame.display.set_caption("Viltu vera Mína eða Mikki?")
     clock = pygame.time.Clock()
 
-#Draw figure cursor
+'''Draw figure cursor
 def draw_stick_figure(screen):
     global x
     global y
@@ -78,7 +78,7 @@ def draw_stick_figure(screen):
     pygame.draw.line(screen, RED, [5 + x, 17 + y], [5 + x, 7 + y], 2)
     # Arms
     pygame.draw.line(screen, RED, [5 + x, 7 + y], [9 + x, 17 + y], 2)
-    pygame.draw.line(screen, RED, [5 + x, 7 + y], [1 + x, 17 + y], 2)
+    pygame.draw.line(screen, RED, [5 + x, 7 + y], [1 + x, 17 + y], 2)'''
 
 #pyGame music
 def music(tune):
@@ -94,13 +94,13 @@ def picture(mmmynd):
 #Game start level board
 def leikurIntro():
     picture(startImage)
-    draw_stick_figure(screen)
+    #draw_stick_figure(screen)
     #messageDisplayLevel
     takkar("Hefja Leik",337,450,150,75,GRAY,RED,'StartLevel1')
 #Level 1 board
 def level1Intro():
     picture(bakgrunnurGameIntro)
-    draw_stick_figure(screen)
+    #draw_stick_figure(screen)
     messageDisplayLevel('Velkomin/nn í völundarmús leikinn!', 4.5)
     messageDisplayLevel('Viltu velja leikmann?', 3)
     takkar("Já!",150,450,150,75,GRAY,RED,'StartLevel1B')
@@ -108,12 +108,12 @@ def level1Intro():
 
 def velja_leikmann():
     picture(mynd)
-    draw_stick_figure(screen)
+    #draw_stick_figure(screen)
     messageDisplayLevel('Veldu leikmann', 3)
     takkar("Mikki",150,450,150,75,GRAY,RED,'mikki mús')
     takkar("Mína",550,450,150,75,GRAY,RED,'mína mús')
 #Display text on board
-"""def messageDisplayLevel(text,lina):
+def messageDisplayLevel(text,lina):
     if level ==0:
         introtexti = pygame.font.Font('HPfont.ttf', 65)
         litur0= BLACK
@@ -126,7 +126,7 @@ def velja_leikmann():
 #Support function for buttons
 def textObjectsBlack(text, font, litur0):
     textSurface = font.render(text, True, litur0)
-    return textSurface, textSurface.get_rect()"""
+    return textSurface, textSurface.get_rect()
 
 ######## TAKKAR ########
 def takkar(text,x,y,breidd,haed,litur1,litur2,action=None):
@@ -186,7 +186,7 @@ def main():
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
         # Limit to 20 frames per second
-        clock.tick(80)
+        #clock.tick(80)
     # Close the window and quit.
     # If you forget this line, the program will 'hang'
     # on exit if running from IDLE.
