@@ -26,12 +26,12 @@ def main():
         bord1.spurningar_bord1(bord1, litur)
 
         #Kalla á púsluspil
-        bord2 = pusluspil()
-        bord2.pusluspil_bord2(bord2, litur)
+        #bord2 = pusluspil()
+        #bord2.pusluspil_bord2(bord2, litur)
 
         #Kalla á kisuborð
-        bord4 = Eltingaleikur()
-        bord4.start_setup(bord4, litur)
+        #bord4 = Eltingaleikur()
+        #bord4.start_setup(bord4, litur)
 
 if __name__=='__main__':
     main()

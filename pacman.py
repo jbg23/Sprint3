@@ -20,10 +20,10 @@ class Eltingaleikur:
     pepp_mynd = pygame.transform.scale(pepp_mynd, (20, 20))
 
     #Mýs eftir lit, þarf að koma inn hvaða lit á að nota
-    minaMus = pygame.image.load("mina.jpg")
+    minaMus = pygame.image.load("mina.png")
     minaMus = pygame.transform.scale(minaMus, (40,40))
 
-    mikkiMus = pygame.image.load("mikki.jpg")
+    mikkiMus = pygame.image.load("mikki.png")
     mikkiMus = pygame.transform.scale(mikkiMus, (40,40))
 
     tommi = pygame.image.load("kisi.png")
@@ -162,7 +162,6 @@ class Eltingaleikur:
         time.sleep(2)
         pygame.quit()
         sys.exit()
-        #væri hægt að gera "Reyna aftur" takka?
 
     def nextLevel(self):
         letur =  pygame.font.SysFont('Arial', 72)
