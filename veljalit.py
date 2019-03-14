@@ -9,21 +9,17 @@ class Veljalit:
 
     def veljalitinn(self):
         #Bjóða upp á að velja leikmann -> sýna myndir -> velja leikmann ->næsta borð
-        print('Veldu þann lit á Mínu sem þú vilt vera')
-        Bla = Image.open('BlaMina.png')
-        Bla.show()
-        Bleik = Image.open('BleikMina.png')
-        Bleik.show()
-        Raud = Image.open('RaudMina.png')
-        Raud.show()
+        print('Veldu þann lit á leikmann sem þú vilt vera')
+        Mikki = Image.open('mikki.png')
+        Mikki.show()
+        Mina = Image.open('mina.png')
+        Mina.show()
 
-        litur = input('Sláðu inn 1 fyrir bláa Mínu, 2 fyrir bleika Mínu og 3 fyrir rauða Mínu\n')
+        litur = input('Sláðu inn 1 fyrir Mikka, 2 fyrir Mínu\n')
         if litur == '1':
-            print('Þú ert blá Mína')
+            print('Þú ert Mikki')
         if litur == '2':
-            print('Þú ert bleik Mína')
-        if litur == '3':
-            print('Þú ert rauð Mína')
+            print('Þú ert Mína')
 
 def main():
     pass
