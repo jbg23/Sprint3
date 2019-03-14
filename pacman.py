@@ -9,7 +9,7 @@ class Eltingaleikur:
 
     #skilgreinum liti
     pepperoni_litur = pygame.Color(153,0,0)
-    gulur = pygame.Color(255,255,102)
+    graenn = pygame.Color(124,255,117)
     blar = pygame.Color(0,102,204)
     bleikur = pygame.Color(255,51,255)
     raudur = pygame.Color(255,0,0)
@@ -20,14 +20,11 @@ class Eltingaleikur:
     pepp_mynd = pygame.transform.scale(pepp_mynd, (20, 20))
 
     #Mýs eftir lit, þarf að koma inn hvaða lit á að nota
-    blaMus = pygame.image.load("BlaMina.png")
-    blaMus = pygame.transform.scale(blaMus, (40,40))
+    minaMus = pygame.image.load("mina.jpg")
+    minaMus = pygame.transform.scale(minaMus, (40,40))
 
-    bleikMus = pygame.image.load("BleikMina.png")
-    bleikMus = pygame.transform.scale(bleikMus, (40,40))
-
-    raudMus = pygame.image.load("RaudMina.png")
-    raudMus = pygame.transform.scale(raudMus, (40,40))
+    mikkiMus = pygame.image.load("mikki.jpg")
+    mikkiMus = pygame.transform.scale(mikkiMus, (40,40))
 
     tommi = pygame.image.load("kisi.png")
     tommi = pygame.transform.scale(tommi, (40,40))
@@ -56,7 +53,7 @@ class Eltingaleikur:
 
         #skilgreinum liti
         pepperoni_litur = pygame.Color(153,0,0)
-        gulur = pygame.Color(255,255,102)
+        graenn = pygame.Color(255,255,102)
         blar = pygame.Color(0,102,204)
         bleikur = pygame.Color(255,51,255)
         raudur = pygame.Color(255,0,0)
@@ -246,8 +243,8 @@ class Eltingaleikur:
             self.pepperoni = True
 
             #Setjum myndir, mús og pepperoni á bakgrunn
-            self.bakgrunnur.fill(self.gulur)
-            self.bakgrunnur.blit(self.bleikMus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
+            self.bakgrunnur.fill(self.graenn)
+            self.bakgrunnur.blit(self.minaMus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
             self.bakgrunnur.blit(self.pepp_mynd, pygame.Rect(self.pepperoni_stadsetning[0], self.pepperoni_stadsetning[1], 20, 20))
             self.bakgrunnur.blit(self.tommi, pygame.Rect(self.kisa1[0], self.kisa1[1], 40, 40))
             self.bakgrunnur.blit(self.tommi, pygame.Rect(self.kisa2[0], self.kisa2[1], 40, 40))
@@ -273,5 +270,3 @@ class Eltingaleikur:
             self.stigafjoldi(1)
             pygame.display.flip()
             self.hradi.tick(10)
-
-    #self.start_setup()
