@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('spurningar.db')
+conn = sqlite3.connect('spurningar_svor.db.sql')
 c = conn.cursor()
 
 ### notad til ad hlada inn spurningum i gagnagrunninn og testa.
