@@ -47,10 +47,10 @@ class Question:
                         intro = False
                     if event.key == pygame.K_h:
                         pygame.quit()
-                        quit()
+                        sys.exit()
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
             self.screenMessage("Velkomin/nn i spurningarleik", self.red, -120, size = "medium" )
-            self.screenMessage("Bisamrottunnar", self.red, -70, size = "medium" )
+            self.screenMessage("völundarmúsarinnar", self.red, -70, size = "medium" )
             self.screenMessage("Thu tharft ad svara 4 spurningum rett i rod til ad komast afram", self.green, -20)
             #self.screenMessage("Veldu erfidleikastig fyrir spurningarnar", self.green,10)
             #self.screenMessage("Ýttu á 1, 2 eða 3", self.red, 50, size = "medium")
@@ -132,7 +132,7 @@ class Question:
                         self.c.close()
                         self.conn.close()
                         pygame.quit()
-                        quit()
+                        sys.exit()
 
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_a:
@@ -174,7 +174,7 @@ class Question:
                                 gameExit = True
                                 gameWin = False
                                 pygame.quit()
-                                quit()
+                                sys.exit()
 
                             if event.key == pygame.K_s:
                                 gameWin = False
@@ -183,9 +183,9 @@ class Question:
                             if event.key == pygame.K_a:
                                 gameWin = False
                                 pygame.mixer.music.stop()
-                                Leikur2 = fiska()
-                                Leikur2.gameIntro()
-                                Leikur2.gameLoop()
+                                #Leikur2 = fiska()
+                                #Leikur2.gameIntro()
+                                #Leikur2.gameLoop()
 
 
             for event in pygame.event.get():
@@ -203,4 +203,4 @@ class Question:
         self.c.close()
         self.conn.close()
         pygame.quit()
-        quit()
+        sys.exit()
