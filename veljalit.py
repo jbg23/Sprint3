@@ -5,7 +5,9 @@ class Veljalit:
         print('smidur veljalit')
 
     def veljalit_litur(self, bord):
+
         self.veljalitinn()
+
 
     def veljalitinn(self):
         #Bjóða upp á að velja leikmann -> sýna myndir -> velja leikmann ->næsta borð
