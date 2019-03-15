@@ -32,8 +32,10 @@ class Question():
     tmp=False
     Svar=""
 
-    def __init__(self):
+    def __init__(self, bord, leikmadur=0):
         print('smidur Spurningaleikur')
+        self.bord = bord
+        self.leikmadur = leikmadur
         self.x1=0
         self.count=0
 
@@ -219,7 +221,7 @@ class Question():
         pygame.quit()
         sys.exit()
 
-bord5 = Question()
+"""bord5 = Question()
 bord5.spurningaIntro()
 #pygame.display.update()
-bord5.gameLoop()
+bord5.gameLoop()"""
