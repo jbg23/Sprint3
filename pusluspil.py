@@ -68,7 +68,11 @@ class Pusluspil:
     display.blit(mynd, (0, 0))
     pygame.display.flip()
 
-    def __init__(self):
+    leikmadur =0
+
+    def __init__(self, bord, leikmadur=0):
+        self.leikmadur=leikmadur
+        self.bord=bord
         print('smidur púsluspil')
 
     def pusluspil_bord2(self, bord):
@@ -216,7 +220,7 @@ class Pusluspil:
                         gameWin = False
                         pygame.mixer.music.stop()
                         #Setja inn sigurmynd
-                        naesta = Pusluspil()
+                        naesta = Pusluspil(self.leikmadur)
                         naesta.puslIntro()
                         naesta.pusluspilrun()
 

@@ -32,7 +32,7 @@ class Question():
     tmp=False
     Svar=""
 
-    def __init__(self, bord, leikmadur=0):
+    def __init__(self, bord, leikmadur):
         print('smidur Spurningaleikur')
         self.bord = bord
         self.leikmadur = leikmadur
@@ -200,7 +200,7 @@ class Question():
                             if event.key == pygame.K_n:
                                 gameWin = False
                                 pygame.mixer.music.stop()
-                                naesta=Eltingaleikur()
+                                naesta=Eltingaleikur(self,self.leikmadur)
                                 naesta.pacIntro()
                                 naesta.byrja()
 

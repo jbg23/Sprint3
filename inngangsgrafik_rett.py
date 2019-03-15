@@ -1,5 +1,4 @@
 import pygame
-from veljalit import Veljalit
 from Spurningaleikur_grafik_rett import Question
 #from Púsluspil import pusluspil
 
@@ -58,7 +57,6 @@ class Inngangur:
         self.takkar("Hefja Leik",337,450,150,75,self.GRAY,self.RED,'Byrja')
     #Level 1 board
     def level1Intro(self):
-        print("level1Iintro")
         self.picture()
         self.messageDisplayLevel('Velkomin/nn í völundarmús leikinn!', 4.5)
         self.messageDisplayLevel('Viltu velja leikmann?', 3)
@@ -91,7 +89,6 @@ class Inngangur:
             pygame.draw.rect(self.gameDisplay, litur2,(x,y,breidd,haed))
             if click[0] == 1 and action != None:
                 if action == "Byrja":
-                    print("takkar")
                     self.level = 1
                     return
                 elif action == 'Velja leikmann':
@@ -129,7 +126,6 @@ class Inngangur:
             if self.level ==0:
                 #self.music('tonlist.mp3')
                 #state_tune=0
-                print("level 0")
                 self.leikurIntro()
             elif self.level ==1:
                 #self.music('tonlist.mp3')
