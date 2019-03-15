@@ -1,6 +1,6 @@
 import pygame
 from veljalit import Veljalit
-from Spurningaleikur_grafik import Question
+from Spurningaleikur_grafik_rett import Question
 #from Púsluspil import pusluspil
 
 class Inngangur:
