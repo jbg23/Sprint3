@@ -133,7 +133,7 @@ class Pusluspil:
                             if self.stada[i,j] == (i,j):
                                 erSigur += 1
                     if erSigur == self.dalkar * self.radir:
-                        print("Þú vannst!")
+                        self.puslsigur()
                         break
                     if event.button == 1: #Ef ýtt á músina (vinstri), á púsl við hliðina á tómu púsli þá færist púslið.
                         mouse_pos = pygame.mouse.get_pos()
@@ -178,6 +178,42 @@ class Pusluspil:
             self.screenMessage("Færðu svo reitina til að púsla myndina", self.blue, +50, size = "medium")
             self.screenMessage("Ýttu á 1 til að byrja", self.blue, +80, size = "medium")
             pygame.display.update()
+
+    def puslSigur(self):
+        display = pygame.display.set_mode(self.myndastaerd)
+        pygame.display.set_caption("Sigur")
+        self.gameDisplay.blit(self.image, [0,0, 800, 600])
+        self.screenMessage("Velkomin/nn i púsluleik", self.blue, -120, size = "large" )
+        self.screenMessage("völundarmúsarinnar", self.blue, -70, size = "large" )
+        self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.blue, +20, size = "medium")
+        self.screenMessage("Færðu svo reitina til að púsla myndina", self.blue, +50, size = "medium")
+        self.screenMessage("Ýttu á 1 til að byrja", self.blue, +80, size = "medium")
+        pygame.display.update()
+
+        while self.stig == 5:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameExit = True
+                    gameWin = False
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_h:
+                        gameExit = True
+                        gameWin = False
+                        pygame.quit()
+                        sys.exit()
+
+                    if event.key == pygame.K_s:
+                        gameWin = False
+                        self.gameIntro()
+
+                    if event.key == pygame.K_n:
+                        gameWin = False
+                        pygame.mixer.music.stop()
+                        #Setja inn sigurmynd
+                        naesta = Pusluspil()
+                        naesta.puslIntro()
+                        naesta.pusluspilrun()
 
 def main():
     pass
