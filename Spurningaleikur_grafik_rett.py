@@ -1,3 +1,4 @@
+from pacman import Eltingaleikur
 import sqlite3
 import pygame
 import time
@@ -137,12 +138,7 @@ class Question():
             self.screenMessage(abcd[1],self.red, -60)
             self.screenMessage(abcd[2],self.red, -30)
             self.screenMessage(abcd[3],self.red,  0)
-            """
-            if self.tmp==True and i>0:
-                self.screenMessage("Svarið var Rétt",self.green, -180, size = "large")
-            elif self.tmp==False and i>0:
-                self.screenMessage("Svarið var Rangt",self.red, -180, size = "large")
-            """
+
             pygame.display.update()
 
             while inGame:
@@ -176,7 +172,6 @@ class Question():
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
             self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
             pygame.display.update()
-            print('hallo33')
             if gameWin == True:
                 self.gameDisplay.blit(self.image, [0,0, 800, 600])
                 self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
@@ -203,6 +198,9 @@ class Question():
                             if event.key == pygame.K_n:
                                 gameWin = False
                                 pygame.mixer.music.stop()
+                                naesta=Eltingaleikur()
+                                naesta.pacIntro()
+                                naesta.byrja()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

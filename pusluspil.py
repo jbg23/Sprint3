@@ -1,8 +1,26 @@
 import sys
 import random
 import pygame
+pygame.init()
 
 class Pusluspil:
+    white = (255,255,255)
+    black = (0, 0, 0)
+    red = (255,0,0)
+    green = (0,255,0)
+    blue = (0,0,205)
+
+    display_width = 800
+    display_height = 600
+    gameDisplay = pygame.display.set_mode((display_width,display_height))
+    pygame.display.update()
+
+    small = pygame.font.SysFont("algerian", 35)
+    medium = pygame.font.SysFont("algerian", 50)
+    large = pygame.font.SysFont("broadway", 65)
+
+    image = pygame.image.load('mikkipusl.jpg')
+
     myndaskra = "mikkipusl.jpg"
     myndastaerd = (750, 500)
     puslbreidd = 250
@@ -56,6 +74,20 @@ class Pusluspil:
         print('Velkominn í annað borð.\nTil að vinna borðið þarft þú að púsla púslið.\nGangi þér vel')
         self.pusluspilrun()
 
+    def texts(self, text, color, size):
+        if size == "small":
+            textSurface = self.small.render(text, True, color)
+        elif size == "medium":
+            textSurface = self.medium.render(text, True, color)
+        elif size == "large":
+            textSurface = self.large.render(text, True, color)
+        return textSurface, textSurface.get_rect()
+
+    def screenMessage(self, msg,color, height = 0, size = "small"):
+        textSurf, textRect = self.texts(msg, color, size)
+        textRect.center = (self.display_width / 2), (self.display_height / 2) + height
+        self.gameDisplay.blit(textSurf, textRect)
+
     #Skipta á tóma púslinu og púsli (d,r)
     def skipti (self, d,r):
         global tomurD
@@ -77,6 +109,12 @@ class Pusluspil:
 
     def pusluspilrun(self):
     #Hreyfa púsl með mús
+        pygame.init()
+        display = pygame.display.set_mode(self.myndastaerd)
+        pygame.display.set_caption("Púslaðu Mikka og félaga!")
+        display.blit(self.mynd, (0, 0))
+        pygame.display.flip()
+
         byrjun = True
         synilausn = False
         while True:
@@ -115,6 +153,31 @@ class Pusluspil:
                 pygame.display.flip()
                 synilausn = False
         pygame.quit()
+
+    def puslIntro(self):
+        pygame.init()
+        intro = True
+        while intro:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_1:
+                        self.level = 1
+                        intro = False
+                    if event.key == pygame.K_h:
+                        pygame.quit()
+                        sys.exit()
+            display = pygame.display.set_mode(self.myndastaerd)
+            pygame.display.set_caption("Púslaðu Mikka og félaga!")
+            self.gameDisplay.blit(self.image, [0,0, 800, 600])
+            self.screenMessage("Velkomin/nn i púsluleik", self.blue, -120, size = "large" )
+            self.screenMessage("völundarmúsarinnar", self.blue, -70, size = "large" )
+            self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.blue, +20, size = "medium")
+            self.screenMessage("Færðu svo reitina til að púsla myndina", self.blue, +50, size = "medium")
+            self.screenMessage("Ýttu á 1 til að byrja", self.blue, +80, size = "medium")
+            pygame.display.update()
 
 def main():
     pass

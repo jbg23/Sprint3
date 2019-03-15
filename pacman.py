@@ -2,8 +2,26 @@ import pygame
 import sys
 import time
 import random
+from pusluspil import Pusluspil
+pygame.init()
 
 class Eltingaleikur:
+
+    white = (255,255,255)
+    black = (0, 0, 0)
+    red = (255,0,0)
+    green = (0,255,0)
+    blue = (0,0,205)
+
+    small = pygame.font.SysFont("algerian", 35)
+    medium = pygame.font.SysFont("algerian", 50)
+    large = pygame.font.SysFont("broadway", 50)
+
+    display_width = 500
+    display_height = 500
+    gameDisplay = pygame.display.set_mode((display_width,display_height))
+    pygame.display.update()
+
     bakgrunnur = pygame.display.set_mode((500, 500))
     pygame.display.set_caption("Safnaðu pepperóníunum!")
 
@@ -14,6 +32,9 @@ class Eltingaleikur:
     bleikur = pygame.Color(255,51,255)
     raudur = pygame.Color(255,0,0)
     svartur = pygame.Color(0,0,0)
+
+    #bakgrunnsmynd
+    bakgrunnslitur = pygame.image.load("graenn.png")
 
     #Mynd af pepperoni sem færist
     pepp_mynd = pygame.image.load("pepperoni.png")
@@ -28,7 +49,6 @@ class Eltingaleikur:
 
     tommi = pygame.image.load("kisi.png")
     tommi = pygame.transform.scale(tommi, (40,40))
-
 
     hradi = pygame.time.Clock()
 
@@ -46,6 +66,20 @@ class Eltingaleikur:
     #self.byrja()
     def __init__(self):
         pass
+
+    def texts(self, text, color, size):
+        if size == "small":
+            textSurface = self.small.render(text, True, color)
+        elif size == "medium":
+            textSurface = self.medium.render(text, True, color)
+        elif size == "large":
+            textSurface = self.large.render(text, True, color)
+        return textSurface, textSurface.get_rect()
+
+    def screenMessage(self, msg,color, height = 0, size = "small"):
+        textSurf, textRect = self.texts(msg, color, size)
+        textRect.center = (self.display_width / 2), (self.display_height / 2) + height
+        self.gameDisplay.blit(textSurf, textRect)
 
     def start_setup(self):
         bakgrunnur = pygame.display.set_mode((500, 500))
@@ -75,7 +109,6 @@ class Eltingaleikur:
 
         tommi = pygame.image.load("kisi.png")
         tommi = pygame.transform.scale(tommi, (40,40))
-
 
         hradi = pygame.time.Clock()
 
@@ -181,6 +214,32 @@ class Eltingaleikur:
             sys.exit()
     #Halda áfram í næsta borð eða klára leikinn
 
+    #Inngangur
+    def pacIntro(self):
+        pygame.init()
+        intro = True
+        while intro:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_1:
+                        self.level = 1
+                        intro = False
+                    if event.key == pygame.K_h:
+                        pygame.quit()
+                        sys.exit()
+            display = pygame.display.set_mode((500, 500))
+            self.bakgrunnur.fill(self.graenn)
+            pygame.display.set_caption("Safnaðu pepperóníunum!")
+            self.screenMessage("Velkomin/nn i eltingaleik", self.blue, -120, size = "medium" )
+            self.screenMessage("völundarmúsarinnar", self.blue, -70, size = "medium" )
+            self.screenMessage("Safnaðu 5 pepperóníum", self.blue, +20, size = "small")
+            self.screenMessage("en passaðu þig á köttunum!", self.blue, +50, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.blue, +80, size = "small")
+            pygame.display.update()
+
     def byrja(self):
         att = "RIGHT"
         breytt_att = att
@@ -229,8 +288,8 @@ class Eltingaleikur:
             teljari = 0
             if (self.pepperoni_stadsetning[0]+10 >= self.mus_stadsetning[0] and self.pepperoni_stadsetning[0] <= self.mus_stadsetning[0]+30) and (self.pepperoni_stadsetning[1]+10 >= self.mus_stadsetning[1] and self.pepperoni_stadsetning[1] <= self.mus_stadsetning[1]+30):
                 self.stig +=1
-                if self.stig == 10:
-                    self.nextLevel()
+                if self.stig == 5:
+                    self.pacSigur()
                 self.pepperoni = False
                 teljari += 1
             else:
@@ -269,3 +328,34 @@ class Eltingaleikur:
             self.stigafjoldi(1)
             pygame.display.flip()
             self.hradi.tick(10)
+
+    def pacSigur(self):
+        self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
+        self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
+        self.screenMessage("Ýttu á s til ad spila aftur,", self.red, 50, size = "small")
+        self.screenMessage("h til ad hætta, n fyrir næsta borð ", self.red, 70, size = "small")
+        pygame.display.update()
+
+        while self.stig == 5:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameExit = True
+                    gameWin = False
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_h:
+                        gameExit = True
+                        gameWin = False
+                        pygame.quit()
+                        sys.exit()
+
+                    if event.key == pygame.K_s:
+                        gameWin = False
+                        self.gameIntro()
+
+                    if event.key == pygame.K_n:
+                        gameWin = False
+                        pygame.mixer.music.stop()
+                        naesta = Pusluspil()
+                        naesta.puslIntro()
+                        naesta.pusluspilrun()
