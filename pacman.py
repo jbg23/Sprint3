@@ -3,7 +3,6 @@ import sys
 import time
 import random
 from pusluspil import Pusluspil
-from IPython import get_ipython
 pygame.init()
 
 class Eltingaleikur:
@@ -64,7 +63,7 @@ class Eltingaleikur:
     kisa3 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
 
     stig = 0
-    #self.byrja()
+
     def __init__(self):
         pass
 
@@ -190,9 +189,21 @@ class Eltingaleikur:
             pygame.quit()
             sys.exit()
         pygame.display.update()
-        get_ipython().magic('reset -sf')
+        self.restartPac()
         self.pacIntro()
 
+    def restartPac(self):
+        self.mus_stadsetning = [250,250] #upphafsstaðsetning músar
+        self.mus_staerd = [[100,50]]
+
+        self.pepperoni_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10] #Random staðsetning á pepperoni
+        self.pepperoni = True
+
+        self.kisa1 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)] #Random staðsetning og stefna fyrir kisur
+        self.kisa2 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
+        self.kisa3 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
+
+        self.stig = 0
     #Inngangur
     def pacIntro(self):
         pygame.init()
