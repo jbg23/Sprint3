@@ -93,6 +93,12 @@ class Pusluspil:
         textRect.center = (self.display_width / 2), (self.display_height / 2) + height
         self.gameDisplay.blit(textSurf, textRect)
 
+    def music(self,tune):
+        pygame.init()
+        pygame.mixer.music.load(tune)
+        pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
+        pygame.mixer.music.play()
+
     #Skipta á tóma púslinu og púsli (d,r)
     def skipti (self, d,r):
         global tomurD
@@ -113,6 +119,7 @@ class Pusluspil:
             self.skipti(d,r)
 
     def pusluspilrun(self):
+        self.music('tonlist.mp3')
     #Hreyfa púsl með mús
         pygame.init()
         display = pygame.display.set_mode(self.myndastaerd)

@@ -116,6 +116,7 @@ class Inngangur:
         self.gameDisplay.blit(textSurf, textRect)
 
     def byrja(self):
+        self.music('tonlist.mp3')
         self.setup()
         done = False
         #state_tune=1
