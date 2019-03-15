@@ -32,8 +32,10 @@ class Question():
     tmp=False
     Svar=""
 
-    def __init__(self):
+    def __init__(self, bord, leikmadur=0):
         print('smidur Spurningaleikur')
+        self.bord = bord
+        self.leikmadur = leikmadur
         self.x1=0
         self.count=0
 
@@ -60,7 +62,7 @@ class Question():
         textRect.center = (self.display_width / 2), (self.display_height / 2) + height
         self.gameDisplay.blit(textSurf, textRect)
 
-    def gameIntro(self):
+    def spurningaIntro(self):
         intro = True
         while intro:
             for event in pygame.event.get():
@@ -193,7 +195,7 @@ class Question():
 
                             if event.key == pygame.K_s:
                                 gameWin = False
-                                self.gameIntro()
+                                self.spurningaIntro()
 
                             if event.key == pygame.K_n:
                                 gameWin = False
@@ -219,7 +221,7 @@ class Question():
         pygame.quit()
         sys.exit()
 
-bord5 = Question()
-bord5.gameIntro()
+"""bord5 = Question()
+bord5.spurningaIntro()
 #pygame.display.update()
-bord5.gameLoop()
+bord5.gameLoop()"""

@@ -1,201 +1,145 @@
-"""
-Sample Python/Pygame Programs
-Simpson College Computer Science
-http://programarcadegames.com/
-http://simpson.edu/computer-science/
-Uppfært V2019 (ingolfuh@hi.is)
-"""
-
 import pygame
 from veljalit import Veljalit
-from Spurningaleikur import spurningaleikur
-from Púsluspil import pusluspil
+from Spurningaleikur_grafik import Question
+#from Púsluspil import pusluspil
 
-#Define some parameters
-breidd = 800
-haed = 600
-startImage = pygame.image.load('volundarmus_titill.png')
-bakgrunnurGameIntro = pygame.image.load('volundarhus.png')
-level=0
+class Inngangur:
+    breidd = 800
+    haed = 600
+    level=0
+    size = [breidd,haed]
+    gameDisplay = pygame.display.set_mode(size)
+    leikmadur = 0
 
-#Myndir fyrir val á leikmanni
-breidd2 = 800
-haed2 = 600
-mynd = pygame.load('mikkimina_valmynd.png')
+    #Myndir
+    mynd = pygame.image.load('mikkimina_valmynd.png')
+    bakg_mynd = pygame.image.load('volundur_opnun.png')
 
+    #Litir
+    BLACK = (0, 0, 0)
+    GRAY = (211,211,211)
+    WHITE = (255, 255, 255)
+    GREEN = (0, 255, 0)
+    RED = (255, 0, 0)
 
-#Skjár
-size = [breidd,haed]
-display_breidd = 800
-display_haed = 600
-gameDisplay = pygame.display.set_mode(size)
+    def __init__(self):
+        pass
 
-# Define some colors
-BLACK = (0, 0, 0)
-GRAY = (211,211,211)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
+    def setup(self):
+        global done
+        global screen
+        global clock
+        pygame.init()
 
-# Setup
-def setup():
-    global done
-    global screen
-    global clock
-    pygame.init()
+        screen = pygame.display.set_mode(self.size)
+        pygame.display.set_caption("Völundarmús")
 
-    # Set the width and height of the screen [width,height]
-    size = [800, 600]
-    screen = pygame.display.set_mode(size)
-    pygame.display.set_caption("Völundarmús")
+    def setup2(self):
+        screen = pygame.display.set_mode(self.size)
+        pygame.display.set_caption("Viltu vera Mína eða Mikki?")
+    #Tónlist
+    def music(self,tune):
+        pygame.init()
+        pygame.mixer.music.load(tune)
+        pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
+        pygame.mixer.music.play()
+    #Valmynd fyrir karaktera
+    def picture(self):
+        Völundarmús = pygame.transform.scale(self.bakg_mynd,self.size)
+        self.gameDisplay.blit(Völundarmús,(0,0))
 
-    # Used to manage how fast the screen updates
-    clock = pygame.time.Clock()
+    def picture2(self):
+        Mikkimina = pygame.transform.scale(self.mynd,self.size)
+        self.gameDisplay.blit(Mikkimina,(0,0))
+    #Game start level board
+    def leikurIntro(self):
+        self.picture()
+        self.messageDisplayLevel('Völundarmús',2)
+        self.takkar("Hefja Leik",337,450,150,75,self.GRAY,self.RED,'Byrja')
+    #Level 1 board
+    def level1Intro(self):
+        print("level1Iintro")
+        self.picture()
+        self.messageDisplayLevel('Velkomin/nn í völundarmús leikinn!', 4.5)
+        self.messageDisplayLevel('Viltu velja leikmann?', 3)
+        self.takkar("Já!",150,450,150,75,self.GRAY,self.RED,'Velja leikmann')
+        self.takkar("Nei",550,450,150,75,self.GRAY,self.RED,'quit')
+    #Val á leikmanni
+    def velja_leikmann(self):
+        self.picture2()
+        self.messageDisplayLevel('Viltu vera Mikki eða Mína?', 8)
+        self.takkar("Mikki",150,495,150,75,self.GRAY,self.RED,'mikki mús')
+        self.takkar("Mína",500,495,150,75,self.GRAY,self.RED,'mína mús')
+    #Birta texta
+    def messageDisplayLevel(self,text,lina):
+        introtexti = pygame.font.Font('Boogaloo.ttf', 60)
+        litur0 = self.RED
+        self.textSurf, self.textRect = self.textObjectsBlack(text, introtexti,litur0)
+        self.textRect.center = ((self.breidd/2),(self.haed/lina))
+        self.gameDisplay.blit(self.textSurf, self.textRect)
+    #Hjálparfall fyrir takka
+    def textObjectsBlack(self,text, font, litur0):
+        textSurface = font.render(text, True, litur0)
+        return textSurface, textSurface.get_rect()
+    #Takkar
+    def takkar(self,text,x,y,breidd,haed,litur1,litur2,action=None):
 
-    # Hide the mouse cursor
-    pygame.mouse.set_visible(0)
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        #Gera kassa gráa ef músin fer yfir kassana
+        if x+breidd > mouse[0] > x and y+haed > mouse[1] > y:
+            pygame.draw.rect(self.gameDisplay, litur2,(x,y,breidd,haed))
+            if click[0] == 1 and action != None:
+                if action == "Byrja":
+                    print("takkar")
+                    self.level = 1
+                    return
+                elif action == 'Velja leikmann':
+                    self.velja_leikmann()
+                    self.level = 2
+                elif action == 'quit':
+                    self.level= 0
+                elif action == "mikki mús":
+                    self.leikmadur=0
+                    bord5 = Question(self,self.leikmadur)
+                    bord5.spurningaIntro()
+                    bord5.gameLoop()
+                elif action == "mína mús":
+                    self.leikmadur=1
+                    bord5 = Question(self,self.leikmadur)
+                    bord5.spurningaIntro()
+                    bord5.gameLoop()
+        else:
+            pygame.draw.rect(self.gameDisplay, litur1,(x,y,breidd,haed))
 
-def setup():
-    size = [800, 600]
-    screen = pygame.display.set_mode(size)
-    pygame.display.set_caption("Viltu vera Mína eða Mikki?")
-    clock = pygame.time.Clock()
+        litur0= self.BLACK
+        takkar2 = pygame.font.Font('Raleway.ttf', 30)
+        textSurf, textRect = self.textObjectsBlack(text, takkar2, litur0)
+        textRect.center = ((x+(breidd/2)),(y+(haed/2)))
+        self.gameDisplay.blit(textSurf, textRect)
 
+    def byrja(self):
+        self.setup()
+        done = False
+        #state_tune=1
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    done = True
+            if self.level ==0:
+                #self.music('tonlist.mp3')
+                #state_tune=0
+                print("level 0")
+                self.leikurIntro()
+            elif self.level ==1:
+                #self.music('tonlist.mp3')
+                #state_tune =1
+                self.level1Intro()
+            elif self.level == 2:
+                #self.music('tonlist.mp3')
+                #state_tune=2
+                self.velja_leikmann()
+            pygame.display.update()
+            pygame.display.flip()
 
-#Draw figure cursor
-def draw_stick_figure(screen):
-    global x
-    global y
-
-    pos = pygame.mouse.get_pos()
-    x= pos[0]
-    y= pos[1]
-
-    # Head
-    pygame.draw.ellipse(screen, BLACK, [1 + x, y, 10, 10], 0)
-    # Legs
-    pygame.draw.line(screen, BLACK, [5 + x, 17 + y], [10 + x, 27 + y], 2)
-    pygame.draw.line(screen, BLACK, [5 + x, 17 + y], [x, 27 + y], 2)
-    # Body
-    pygame.draw.line(screen, RED, [5 + x, 17 + y], [5 + x, 7 + y], 2)
-    # Arms
-    pygame.draw.line(screen, RED, [5 + x, 7 + y], [9 + x, 17 + y], 2)
-    pygame.draw.line(screen, RED, [5 + x, 7 + y], [1 + x, 17 + y], 2)
-
-#pyGame music
-def music(tune):
-    pygame.mixer.music.load(tune)
-    pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
-    pygame.mixer.music.play()
-
-#pyGame picture
-def picture(mmmynd):
-    mmmynd = pygame.transform.scale(mmmynd,size)
-    gameDisplay.blit(mmmynd,(0,0))
-
-#Game start level board
-def leikurIntro():
-    picture(startImage)
-    draw_stick_figure(screen)
-    #messageDisplayLevel
-    takkar("Hefja Leik",337,450,150,75,GRAY,RED,'StartLevel1')
-#Level 1 board
-def level1Intro():
-    picture(bakgrunnurGameIntro)
-    draw_stick_figure(screen)
-    messageDisplayLevel('Velkomin/nn í völundarmús leikinn!', 4.5)
-    messageDisplayLevel('Viltu velja leikmann?', 3)
-    takkar("Já!",150,450,150,75,GRAY,RED,'StartLevel1B')
-    takkar("Nei",550,450,150,75,GRAY,RED,'quit')
-
-
-def velja_leikmann():
-    picture(mynd)
-    draw_stick_figure(screen)
-    messageDisplayLevel('Veldu leikmann', 3)
-    takkar("Mikki",150,450,150,75,GRAY,RED,'mikki mús')
-    takkar("Mína",550,450,150,75,GRAY,RED,'mína mús')
-#Display text on board
-"""def messageDisplayLevel(text,lina):
-    if level ==0:
-        introtexti = pygame.font.Font('HPfont.ttf', 65)
-        litur0= BLACK
-    elif level ==1:
-        introtexti = pygame.font.Font('Boogaloo.ttf', 35)
-        litur0= RED
-    textSurf, textRect = textObjectsBlack(text, introtexti,litur0)
-    textRect.center = ((display_breidd/2),(display_haed/lina))
-    gameDisplay.blit(textSurf, textRect)
-#Support function for buttons
-def textObjectsBlack(text, font, litur0):
-    textSurface = font.render(text, True, litur0)
-    return textSurface, textSurface.get_rect()"""
-
-######## TAKKAR ########
-def takkar(text,x,y,breidd,haed,litur1,litur2,action=None):
-    global level
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    #gera kassa gráa ef músin fer yfir kassana
-    if x+breidd > mouse[0] > x and y+haed > mouse[1] > y:
-        pygame.draw.rect(gameDisplay, litur2,(x,y,breidd,haed))
-        if click[0] == 1 and action !=None:
-            if action == "StartLevel1":
-                level= 1
-                return
-            elif action == 'mikki mús' or action == 'mína mús':
-                litur= Veljalit()
-                litur.veljalit_litur(litur)
-            elif action == 'quit':
-                level= 0
-    else:
-        pygame.draw.rect(gameDisplay, litur1,(x,y,breidd,haed))
-
-    litur0= BLACK
-    takkar2 = pygame.font.Font('Raleway.ttf', 30)
-    textSurf, textRect = textObjectsBlack(text, takkar2, litur0)
-    textRect.center = ((x+(breidd/2)),(y+(haed/2)))
-    gameDisplay.blit(textSurf, textRect)
-
-# -------- Main Program Loop -----------
-def main():
-    setup()
-    done = False
-    state_tune=1
-    # Loop until the user clicks the close button.
-    while not done:
-        # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                done = True
-        if level ==0:
-            if state_tune !=0:
-                music('tonlist.mp3')
-                state_tune=0
-            leikurIntro()
-        elif level ==1:
-            if state_tune == 0:
-                music('tonlist.mp3')
-                state_tune =1
-            level1Intro()
-        elif level == 2:
-            if state_tune == 1:
-                music('tonlist.mp3')
-                state_tune=2
-            velja_leikmann()
-        #elif level == 3:
-
-        pygame.display.update()
-        # Go ahead and update the screen with what we've drawn.
-        pygame.display.flip()
-        # Limit to 20 frames per second
-        clock.tick(80)
-    # Close the window and quit.
-    # If you forget this line, the program will 'hang'
-    # on exit if running from IDLE.
-    pygame.quit()
-
-if __name__=='__main__':
-    main()
-else:
-    print('No just imported by another class')
+        pygame.quit()

@@ -175,9 +175,11 @@ class Pusluspil:
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
             self.screenMessage("Velkomin/nn i púsluleik", self.blue, -120, size = "large" )
             self.screenMessage("völundarmúsarinnar", self.blue, -70, size = "large" )
-            self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.blue, +20, size = "medium")
-            self.screenMessage("Færðu svo reitina til að púsla myndina", self.blue, +50, size = "medium")
-            self.screenMessage("Ýttu á 1 til að byrja", self.blue, +80, size = "medium")
+            self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.blue, +20, size = "small")
+            self.screenMessage("Færðu svo reitina til að púsla myndina.", self.blue, +50, size = "small")
+            self.screenMessage("Þú getur kíkt á réttu myndina með því að hægrismella.", self.blue, +80, size = "small")
+            self.screenMessage("Smelltu svo á myndina þegar þú hefur náð að púsla púslið.", self.blue, +110, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.blue, +140, size = "small")
             pygame.display.update()
 
     def puslSigur(self):
@@ -208,7 +210,7 @@ class Pusluspil:
 
                     if event.key == pygame.K_s:
                         gameWin = False
-                        self.gameIntro()
+                        self.puslIntro()
 
                     if event.key == pygame.K_n:
                         gameWin = False
