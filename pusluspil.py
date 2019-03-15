@@ -134,7 +134,7 @@ class Pusluspil:
                             if self.stada[i,j] == (i,j):
                                 erSigur += 1
                     if erSigur == self.dalkar * self.radir:
-                        self.puslsigur()
+                        self.puslSigur()
                         break
                     if event.button == 1: #Ef ýtt á músina (vinstri), á púsl við hliðina á tómu púsli þá færist púslið.
                         mouse_pos = pygame.mouse.get_pos()
