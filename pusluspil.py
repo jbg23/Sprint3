@@ -20,6 +20,7 @@ class Pusluspil:
     large = pygame.font.SysFont("broadway", 65)
 
     image = pygame.image.load('mikkipusl.jpg')
+    sigurmynd = pygame.image.load('volundarhus_sigur.png')
 
     myndaskra = "mikkipusl.jpg"
     myndastaerd = (750, 500)
@@ -180,15 +181,17 @@ class Pusluspil:
             pygame.display.update()
 
     def puslSigur(self):
-        display = pygame.display.set_mode(self.myndastaerd)
+        display = pygame.display.set_mode((750, 500))
+        pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Sigur")
-        self.gameDisplay.blit(self.image, [0,0, 800, 600])
-        self.screenMessage("Velkomin/nn i púsluleik", self.blue, -120, size = "large" )
-        self.screenMessage("völundarmúsarinnar", self.blue, -70, size = "large" )
-        self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.blue, +20, size = "medium")
-        self.screenMessage("Færðu svo reitina til að púsla myndina", self.blue, +50, size = "medium")
-        self.screenMessage("Ýttu á 1 til að byrja", self.blue, +80, size = "medium")
+        self.gameDisplay.blit(self.sigurmynd, [0,0, 750, 500])
+        self.screenMessage("TIL HAMINGJU", self.blue, -90, size = "large" )
+        self.screenMessage("ÞÚ VANNST LEIKINN", self.blue, -40, size = "large" )
+        self.screenMessage("Ýttu á h til að hætta,", self.blue, +20, size = "small")
+        self.screenMessage("s til að spila aftur eða n til að byrja leikinn upp á nýtt,", self.blue, +40, size = "small")
         pygame.display.update()
+
+        self.stig=5
 
         while self.stig == 5:
             for event in pygame.event.get():
