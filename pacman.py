@@ -3,6 +3,7 @@ import sys
 import time
 import random
 from pusluspil import Pusluspil
+from IPython import get_ipython
 pygame.init()
 
 class Eltingaleikur:
@@ -180,39 +181,17 @@ class Eltingaleikur:
         self.bakgrunnur.blit(skrift_bakg , Srect)
 
     def gameOver(self):
-        letur =  pygame.font.SysFont('Arial', 72)
-        GO_bakg = letur.render("Þú tapaðir!", True, self.raudur)
-        GOrect = GO_bakg.get_rect()
-        GOrect.midtop = (250,150)
-        self.bakgrunnur.blit(GO_bakg, GOrect)
+        self.screenMessage("Þú tapaðir!", self.red, -40, size = "medium")
+        self.screenMessage("Ýttu á hvaða takka sem er til að byrja aftur", self.red, -10, size = "small")
         self.stigafjoldi(0)
         pygame.display.flip()
-        while True:
-            event = pygame.event.wait()
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-        time.sleep(2)
-        pygame.quit()
-        sys.exit()
-
-    def nextLevel(self):
-        letur =  pygame.font.SysFont('Arial', 72)
-        GO_bakg = letur.render("Þú kláraðir borðið!", True, self.raudur)
-        GOrect = GO_bakg.get_rect()
-        GOrect.midtop = (250,150)
-        self.bakgrunnur.blit(GO_bakg, GOrect)
-        self.stigafjoldi(0)
-        pygame.display.flip()
-        while True:
-            event = pygame.event.wait()
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            time.sleep(2)
+        event = pygame.event.wait()
+        if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    #Halda áfram í næsta borð eða klára leikinn
+        pygame.display.update()
+        get_ipython().magic('reset -sf')
+        self.pacIntro()
 
     #Inngangur
     def pacIntro(self):
@@ -351,7 +330,7 @@ class Eltingaleikur:
 
                     if event.key == pygame.K_s:
                         gameWin = False
-                        self.gameIntro()
+                        self.pacIntro()
 
                     if event.key == pygame.K_n:
                         gameWin = False
