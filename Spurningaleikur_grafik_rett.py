@@ -1,3 +1,4 @@
+from pacman import Eltingaleikur
 import sqlite3
 import pygame
 import time
@@ -31,8 +32,10 @@ class Question():
     tmp=False
     Svar=""
 
-    def __init__(self):
+    def __init__(self, bord, leikmadur=0):
         print('smidur Spurningaleikur')
+        self.bord = bord
+        self.leikmadur = leikmadur
         self.x1=0
         self.count=0
 
@@ -59,7 +62,7 @@ class Question():
         textRect.center = (self.display_width / 2), (self.display_height / 2) + height
         self.gameDisplay.blit(textSurf, textRect)
 
-    def gameIntro(self):
+    def spurningaIntro(self):
         intro = True
         while intro:
             for event in pygame.event.get():
@@ -137,12 +140,7 @@ class Question():
             self.screenMessage(abcd[1],self.red, -60)
             self.screenMessage(abcd[2],self.red, -30)
             self.screenMessage(abcd[3],self.red,  0)
-            """
-            if self.tmp==True and i>0:
-                self.screenMessage("Svarið var Rétt",self.green, -180, size = "large")
-            elif self.tmp==False and i>0:
-                self.screenMessage("Svarið var Rangt",self.red, -180, size = "large")
-            """
+
             pygame.display.update()
 
             while inGame:
@@ -176,7 +174,6 @@ class Question():
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
             self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
             pygame.display.update()
-            print('hallo33')
             if gameWin == True:
                 self.gameDisplay.blit(self.image, [0,0, 800, 600])
                 self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
@@ -198,11 +195,14 @@ class Question():
 
                             if event.key == pygame.K_s:
                                 gameWin = False
-                                self.gameIntro()
+                                self.spurningaIntro()
 
                             if event.key == pygame.K_n:
                                 gameWin = False
                                 pygame.mixer.music.stop()
+                                naesta=Eltingaleikur()
+                                naesta.pacIntro()
+                                naesta.byrja()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -221,7 +221,7 @@ class Question():
         pygame.quit()
         sys.exit()
 
-bord5 = Question()
-bord5.gameIntro()
+"""bord5 = Question()
+bord5.spurningaIntro()
 #pygame.display.update()
-bord5.gameLoop()
+bord5.gameLoop()"""

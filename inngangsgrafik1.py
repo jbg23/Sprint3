@@ -63,7 +63,7 @@ def setup():
 
 
 #Draw figure cursor
-def draw_stick_figure(screen):
+"""def draw_stick_figure(screen):
     global x
     global y
 
@@ -80,7 +80,7 @@ def draw_stick_figure(screen):
     pygame.draw.line(screen, RED, [5 + x, 17 + y], [5 + x, 7 + y], 2)
     # Arms
     pygame.draw.line(screen, RED, [5 + x, 7 + y], [9 + x, 17 + y], 2)
-    pygame.draw.line(screen, RED, [5 + x, 7 + y], [1 + x, 17 + y], 2)
+    pygame.draw.line(screen, RED, [5 + x, 7 + y], [1 + x, 17 + y], 2)"""
 
 #pyGame music
 def music(tune):
@@ -116,7 +116,7 @@ def velja_leikmann():
     takkar("Mikki",150,450,150,75,GRAY,RED,'mikki mús')
     takkar("Mína",550,450,150,75,GRAY,RED,'mína mús')
 #Display text on board
-"""def messageDisplayLevel(text,lina):
+def messageDisplayLevel(text,lina):
     if level ==0:
         introtexti = pygame.font.Font('HPfont.ttf', 65)
         litur0= BLACK
@@ -129,7 +129,7 @@ def velja_leikmann():
 #Support function for buttons
 def textObjectsBlack(text, font, litur0):
     textSurface = font.render(text, True, litur0)
-    return textSurface, textSurface.get_rect()"""
+    return textSurface, textSurface.get_rect()
 
 ######## TAKKAR ########
 def takkar(text,x,y,breidd,haed,litur1,litur2,action=None):
