@@ -64,8 +64,9 @@ class Eltingaleikur:
 
     stig = 0
 
-    def __init__(self):
-        pass
+    def __init__(self, bord, leikmadur):
+        self.bord = bord
+        self.leikmadur = leikmadur
 
     def texts(self, text, color, size):
         if size == "small":
@@ -289,10 +290,13 @@ class Eltingaleikur:
             if self.pepperoni == False:
                 self.pepperoni_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10]
             self.pepperoni = True
-
+            if self.leikmadur == 0:
+                valin_mus = self.mikkiMus
+            elif self.leikmadur == 1:
+                valin_mus = self.minaMus
             #Setjum myndir, mús og pepperoni á bakgrunn
             self.bakgrunnur.fill(self.graenn)
-            self.bakgrunnur.blit(self.minaMus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
+            self.bakgrunnur.blit(valin_mus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
             self.bakgrunnur.blit(self.pepp_mynd, pygame.Rect(self.pepperoni_stadsetning[0], self.pepperoni_stadsetning[1], 20, 20))
             self.bakgrunnur.blit(self.tommi, pygame.Rect(self.kisa1[0], self.kisa1[1], 40, 40))
             self.bakgrunnur.blit(self.tommi, pygame.Rect(self.kisa2[0], self.kisa2[1], 40, 40))
@@ -347,6 +351,6 @@ class Eltingaleikur:
                     if event.key == pygame.K_n:
                         gameWin = False
                         pygame.mixer.music.stop()
-                        naesta = Pusluspil()
+                        naesta = Pusluspil(self,self.leikmadur)
                         naesta.puslIntro()
                         naesta.pusluspilrun()
