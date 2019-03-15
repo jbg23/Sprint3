@@ -341,6 +341,7 @@ class Eltingaleikur:
 
                     if event.key == pygame.K_s:
                         gameWin = False
+                        self.restartPac()
                         self.pacIntro()
 
                     if event.key == pygame.K_n:
