@@ -82,6 +82,12 @@ class Eltingaleikur:
         textRect.center = (self.display_width / 2), (self.display_height / 2) + height
         self.gameDisplay.blit(textSurf, textRect)
 
+    def music(self,tune):
+        pygame.init()
+        pygame.mixer.music.load(tune)
+        pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
+        pygame.mixer.music.play()
+
     def start_setup(self):
         bakgrunnur = pygame.display.set_mode((500, 500))
         pygame.display.set_caption("Safnaðu pepperóníunum!")
@@ -232,6 +238,7 @@ class Eltingaleikur:
             pygame.display.update()
 
     def byrja(self):
+        self.music('tonlist.mp3')
         att = "RIGHT"
         breytt_att = att
         while True:
