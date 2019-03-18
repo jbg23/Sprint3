@@ -12,6 +12,10 @@ class Question():
     Stig = 0
     level = 1
 
+    def create_table():
+        self.c.execute('CREATE TABLE IF NOT EXISTS Spurningar(SpID INT PRIMARY KEY,spurning TEXT, rettSvar CHAR, level INT)')
+        self.c.execute('CREATE TABLE IF NOT EXISTS Svor(SvID INT PRIMARY KEY, svor TEXT, rettSvar CHAR)')
+
     white = (255,255,255)
     black = (0, 0, 0)
     red = (255,0,0)
@@ -84,7 +88,7 @@ class Question():
             pygame.display.update()
 
     #Synir fjolda rettra svara i rod
-    def gameScore(self):
+    def teljaStig(self):
         text = self.small.render("Rétt svör í röð: " + str(self.Stig), True, self.black)
         self.gameDisplay.blit(text, [0,0])
         if self.Svar=="Rangt":col=self.red
@@ -94,32 +98,32 @@ class Question():
         pygame.display.update()
 
     #Saekir spurningar ur gagnagrunninum
-    def getQuestion(self, level):
+    def spurning(self, level):
         self.c.execute('SELECT count(spurning) FROM Spurningar WHERE level = :level',{'level': level})
         count =  (int)(''.join(map(str,(self.c.fetchone()))))
         self.c.execute('SELECT spurning, SpId FROM Spurningar WHERE level = :level',{'level': level})
         return self.c.fetchmany(count)
 
     #Saekir svar vid vidkomandi spurningu ur gagnagrunninum
-    def getAnswer(self, SpID):
+    def svar(self, SpID):
         self.c.execute('SELECT svor FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
         return self.c.fetchone()
 
     #Athugar hvort leikmadur hefur unnid
-    def checkScore(self):
+    def skodaStig(self):
         if(self.Stig == 4):
             self.Stig = 0
             self.gameLoop(gameWin = True)
 
     #Athugar hvort leikmadur setti inn rett svar
-    def checkAnswer(self,SpID,svar):
+    def skodaSvar(self,SpID,svar):
         self.c.execute('SELECT rettSvar FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
         if (svar == ''.join(map(str,(self.c.fetchone())))):
             #self.screenMessage("Rett svar",self.red, +100, size = "large")
             self.tmp=True
             self.Svar= "Rétt"
             self.Stig += 1
-            self.checkScore()
+            self.skodaStig()
         else:
         #    self.screenMessage("Rangt svar!",self.red, -20, size = "large")
             self.tmp=False
@@ -129,13 +133,13 @@ class Question():
 
     #Faera thessa adferd inni gameLoop??
     def playGame(self,level):
-        x = self.getQuestion(self.level)
+        x = self.spurning(self.level)
 
         for i in range(0,len(x)):
             inGame = True
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
             self.screenMessage(''.join(map(str,(x[i][0]))),self.black,-150)
-            abcd = ''.join(map(str,(self.getAnswer(x[i][1])))).splitlines()
+            abcd = ''.join(map(str,(self.svar(x[i][1])))).splitlines()
             self.screenMessage(abcd[0],self.red, -90)
             self.screenMessage(abcd[1],self.red, -60)
             self.screenMessage(abcd[2],self.red, -30)
@@ -154,18 +158,18 @@ class Question():
 
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_a:
-                            self.checkAnswer(x[i][1], 'a')
+                            self.skodaSvar(x[i][1], 'a')
                             inGame = False
                         elif event.key == pygame.K_b:
-                            self.checkAnswer(x[i][1], 'b')
+                            self.skodaSvar(x[i][1], 'b')
                             inGame = False
                         elif event.key == pygame.K_c:
-                            self.checkAnswer(x[i][1], 'c')
+                            self.skodaSvar(x[i][1], 'c')
                             inGame = False
                         elif event.key == pygame.K_d:
-                            self.checkAnswer(x[i][1], 'd')
+                            self.skodaSvar(x[i][1], 'd')
                             inGame = False
-                    self.gameScore()
+                    self.teljaStig()
 
     def gameLoop(self, gameWin = False):
         gameExit =  False
@@ -220,8 +224,3 @@ class Question():
         self.conn.close()
         pygame.quit()
         sys.exit()
-
-"""bord5 = Question()
-bord5.spurningaIntro()
-#pygame.display.update()
-bord5.gameLoop()"""

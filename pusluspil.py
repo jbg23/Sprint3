@@ -1,6 +1,7 @@
 import sys
 import random
 import pygame
+#from inngangsgrafik_rett import Inngangur
 pygame.init()
 
 class Pusluspil:
@@ -221,15 +222,17 @@ class Pusluspil:
 
                     if event.key == pygame.K_s:
                         gameWin = False
-                        self.puslIntro()
+                        naesta = Pusluspil(self.leikmadur)
+                        naesta.puslIntro()
+                        naesta.pusluspilrun()
 
                     if event.key == pygame.K_n:
                         gameWin = False
                         pygame.mixer.music.stop()
                         #Setja inn sigurmynd
-                        naesta = Pusluspil(self.leikmadur)
-                        naesta.puslIntro()
-                        naesta.pusluspilrun()
+                        bord0 = Inngangur()
+                        bord0.byrja()
+
 
 def main():
     pass
