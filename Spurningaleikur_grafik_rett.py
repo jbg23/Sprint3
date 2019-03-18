@@ -8,9 +8,13 @@ pygame.init()
 class Question():
     #Tengingar vid gagnagrunn
     conn = sqlite3.connect('spurningar.db')
-    spurningalisti = conn.cursor()
+    c = conn.cursor()
     Stig = 0
     level = 1
+
+    def create_table():
+        self.c.execute('CREATE TABLE IF NOT EXISTS Spurningar(SpID INT PRIMARY KEY,spurning TEXT, rettSvar CHAR, level INT)')
+        self.c.execute('CREATE TABLE IF NOT EXISTS Svor(SvID INT PRIMARY KEY, svor TEXT, rettSvar CHAR)')
 
     white = (255,255,255)
     black = (0, 0, 0)
@@ -95,15 +99,15 @@ class Question():
 
     #Saekir spurningar ur gagnagrunninum
     def spurning(self, level):
-        self.spurningalisti.execute('SELECT count(spurning) FROM Spurningar WHERE level = :level',{'level': level})
-        count =  (int)(''.join(map(str,(self.spurningalisti.fetchone()))))
-        self.spurningalisti.execute('SELECT spurning, SpId FROM Spurningar WHERE level = :level',{'level': level})
-        return self.spurningalisti.fetchmany(count)
+        self.c.execute('SELECT count(spurning) FROM Spurningar WHERE level = :level',{'level': level})
+        count =  (int)(''.join(map(str,(self.c.fetchone()))))
+        self.c.execute('SELECT spurning, SpId FROM Spurningar WHERE level = :level',{'level': level})
+        return self.c.fetchmany(count)
 
     #Saekir svar vid vidkomandi spurningu ur gagnagrunninum
     def svar(self, SpID):
-        self.spurningalisti.execute('SELECT svor FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
-        return self.spurningalisti.fetchone()
+        self.c.execute('SELECT svor FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
+        return self.c.fetchone()
 
     #Athugar hvort leikmadur hefur unnid
     def skodaStig(self):
@@ -113,8 +117,8 @@ class Question():
 
     #Athugar hvort leikmadur setti inn rett svar
     def skodaSvar(self,SpID,svar):
-        self.spurningalisti.execute('SELECT rettSvar FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
-        if (svar == ''.join(map(str,(self.spurningalisti.fetchone())))):
+        self.c.execute('SELECT rettSvar FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
+        if (svar == ''.join(map(str,(self.c.fetchone())))):
             #self.screenMessage("Rett svar",self.red, +100, size = "large")
             self.tmp=True
             self.Svar= "Rétt"
@@ -147,7 +151,7 @@ class Question():
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
 
-                        self.spurningalisti.close()
+                        self.c.close()
                         self.conn.close()
                         pygame.quit()
                         sys.exit()
@@ -216,7 +220,7 @@ class Question():
             pygame.display.update()
             #self.clock.tick(0)
 
-        self.spurningalisti.close()
+        self.c.close()
         self.conn.close()
         pygame.quit()
         sys.exit()
