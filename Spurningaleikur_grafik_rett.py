@@ -8,7 +8,7 @@ pygame.init()
 class Question():
     #Tengingar vid gagnagrunn
     conn = sqlite3.connect('spurningar.db')
-    c = conn.cursor()
+    spurningalisti = conn.cursor()
     Stig = 0
     level = 1
 
@@ -95,15 +95,15 @@ class Question():
 
     #Saekir spurningar ur gagnagrunninum
     def getQuestion(self, level):
-        self.c.execute('SELECT count(spurning) FROM Spurningar WHERE level = :level',{'level': level})
-        count =  (int)(''.join(map(str,(self.c.fetchone()))))
-        self.c.execute('SELECT spurning, SpId FROM Spurningar WHERE level = :level',{'level': level})
-        return self.c.fetchmany(count)
+        self.spurningalisti.execute('SELECT count(spurning) FROM Spurningar WHERE level = :level',{'level': level})
+        count =  (int)(''.join(map(str,(self.spurningalisti.fetchone()))))
+        self.spurningalisti.execute('SELECT spurning, SpId FROM Spurningar WHERE level = :level',{'level': level})
+        return self.spurningalisti.fetchmany(count)
 
     #Saekir svar vid vidkomandi spurningu ur gagnagrunninum
     def getAnswer(self, SpID):
-        self.c.execute('SELECT svor FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
-        return self.c.fetchone()
+        self.spurningalisti.execute('SELECT svor FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
+        return self.spurningalisti.fetchone()
 
     #Athugar hvort leikmadur hefur unnid
     def checkScore(self):
@@ -113,8 +113,8 @@ class Question():
 
     #Athugar hvort leikmadur setti inn rett svar
     def checkAnswer(self,SpID,svar):
-        self.c.execute('SELECT rettSvar FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
-        if (svar == ''.join(map(str,(self.c.fetchone())))):
+        self.spurningalisti.execute('SELECT rettSvar FROM Svor WHERE SvID = :SvID',{'SvID': SpID})
+        if (svar == ''.join(map(str,(self.spurningalisti.fetchone())))):
             #self.screenMessage("Rett svar",self.red, +100, size = "large")
             self.tmp=True
             self.Svar= "Rétt"
@@ -147,7 +147,7 @@ class Question():
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
 
-                        self.c.close()
+                        self.spurningalisti.close()
                         self.conn.close()
                         pygame.quit()
                         sys.exit()
@@ -216,12 +216,7 @@ class Question():
             pygame.display.update()
             #self.clock.tick(0)
 
-        self.c.close()
+        self.spurningalisti.close()
         self.conn.close()
         pygame.quit()
         sys.exit()
-
-"""bord5 = Question()
-bord5.spurningaIntro()
-#pygame.display.update()
-bord5.gameLoop()"""
