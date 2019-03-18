@@ -60,8 +60,8 @@ class Inngangur:
         self.picture()
         self.messageDisplayLevel('Velkomin/nn í völundarmús leikinn!', 4.5)
         self.messageDisplayLevel('Viltu velja leikmann?', 3)
-        self.takkar("Já!",150,450,150,75,self.GRAY,self.RED,'Velja leikmann')
-        self.takkar("Nei",550,450,150,75,self.GRAY,self.RED,'quit')
+        self.takkar("Já!",150,400,150,75,self.GRAY,self.RED,'Velja leikmann')
+        self.takkar("Nei",550,400,150,75,self.GRAY,self.RED,'quit')
     #Val á leikmanni
     def velja_leikmann(self):
         self.picture2()
