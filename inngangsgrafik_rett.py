@@ -17,8 +17,6 @@ class Inngangur:
     #Litir
     BLACK = (0, 0, 0)
     GRAY = (211,211,211)
-    WHITE = (255, 255, 255)
-    GREEN = (0, 255, 0)
     RED = (255, 0, 0)
 
     def __init__(self):
