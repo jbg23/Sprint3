@@ -82,7 +82,7 @@ class Inngangur:
         self.messageDisplayLevel1('   Til að sigra þarft þú að komast í gegnum völundarhúsið.', -700)
         self.messageDisplayLevel1('Á leiðinni þarft þú að klára ýmsar þrautir sem á vegi þínum verða.', -600)
         self.messageDisplayLevel1('Gangi þér vel!', -500)
-        self.takkar("Til baka",337,450,150,75,self.GRAY,self.RED,'tilbaka')
+        self.takkar("Til baka",337,450,150,75,self.BLACK,self.GRAY,'tilbaka')
     #Birta texta
     def messageDisplayLevel(self,text,lina):
         introtexti = pygame.font.Font('Boogaloo.ttf', 100)
@@ -93,7 +93,7 @@ class Inngangur:
 
     def messageDisplayLevel1(self,text,haed):
         introtexti = pygame.font.Font('Boogaloo.ttf', 30)
-        litur0 = self.WHITE
+        litur0 = self.BLACK
         self.textSurf, self.textRect = self.textObjectsBlack(text, introtexti,litur0)
         self.textRect.center = ((self.breidd/2),(haed/2)+self.haed)
         self.gameDisplay.blit(self.textSurf, self.textRect)

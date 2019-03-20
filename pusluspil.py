@@ -20,6 +20,7 @@ class Pusluspil:
     medium = pygame.font.SysFont("algerian", 50)
     large = pygame.font.SysFont("broadway", 65)
 
+    puslintro = pygame.image.load("puslintro.png")
     image = pygame.image.load('mikkipusl.jpg')
     sigurmynd = pygame.image.load('volundarhus_sigur.png')
 
@@ -184,14 +185,14 @@ class Pusluspil:
                         sys.exit()
             display = pygame.display.set_mode(self.myndastaerd)
             pygame.display.set_caption("Púslaðu Mikka og félaga!")
-            self.gameDisplay.blit(self.image, [0,0, 800, 600])
-            self.screenMessage("Velkomin/nn i púsluleik", self.blue, -120, size = "large" )
-            self.screenMessage("völundarmúsarinnar", self.blue, -70, size = "large" )
-            self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.blue, +20, size = "small")
-            self.screenMessage("Færðu svo reitina til að púsla myndina.", self.blue, +50, size = "small")
-            self.screenMessage("Þú getur kíkt á réttu myndina með því að hægrismella.", self.blue, +80, size = "small")
-            self.screenMessage("Smelltu svo á myndina þegar þú hefur náð að púsla púslið.", self.blue, +110, size = "small")
-            self.screenMessage("Ýttu á 1 til að byrja", self.blue, +140, size = "small")
+            self.gameDisplay.blit(self.puslintro, [0,0, 800, 600])
+            self.screenMessage("Velkomin/nn i púsluleik", self.black, -120, size = "large" )
+            self.screenMessage("völundarmúsarinnar", self.black, -70, size = "large" )
+            self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.black, +20, size = "small")
+            self.screenMessage("Færðu svo reitina til að púsla myndina.", self.black, +50, size = "small")
+            self.screenMessage("Þú getur kíkt á réttu myndina með því að hægrismella.", self.black, +80, size = "small")
+            self.screenMessage("Smelltu svo á myndina þegar þú hefur náð að púsla púslið.", self.black, +110, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.black, +140, size = "small")
             pygame.display.update()
 
     def puslSigur(self):

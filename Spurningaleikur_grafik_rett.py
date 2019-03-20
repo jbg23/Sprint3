@@ -80,18 +80,18 @@ class Question():
                         pygame.quit()
                         sys.exit()
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
-            self.screenMessage("Velkomin/nn i spurningarleik", self.red, -120, size = "medium" )
-            self.screenMessage("völundarmúsarinnar", self.red, -70, size = "medium" )
-            self.screenMessage("Þú þarft að svara 4 spurningum rétt i röð til að komast áfram.", self.red, +80, size = "small")
-            self.screenMessage("Ýttu á 1 til að byrja", self.red, +110, size = "small")
+            self.screenMessage("Velkomin/nn i spurningarleik", self.black, -120, size = "medium" )
+            self.screenMessage("völundarmúsarinnar", self.black, -70, size = "medium" )
+            self.screenMessage("Þú þarft að svara 4 spurningum rétt i röð til að komast áfram.", self.black, +80, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.black, +110, size = "small")
             pygame.display.update()
 
     #Synir fjolda rettra svara i rod
     def teljaStig(self):
         text = self.small.render("Rétt svör í röð: " + str(self.Stig), True, self.black)
         self.gameDisplay.blit(text, [0,0])
-        if self.Svar=="Rangt":col=self.red
-        else: col=self.green
+        if self.Svar=="Rangt":col=self.black
+        else: col=self.black
         text = self.small.render("Svarið var: "+ self.Svar, True, col)
         self.gameDisplay.blit(text, [320,400])
         pygame.display.update()
@@ -139,10 +139,10 @@ class Question():
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
             self.screenMessage(''.join(map(str,(x[i][0]))),self.black,-150)
             abcd = ''.join(map(str,(self.svar(x[i][1])))).splitlines()
-            self.screenMessage(abcd[0],self.red, -90)
-            self.screenMessage(abcd[1],self.red, -60)
-            self.screenMessage(abcd[2],self.red, -30)
-            self.screenMessage(abcd[3],self.red,  0)
+            self.screenMessage(abcd[0],self.black, -90)
+            self.screenMessage(abcd[1],self.black, -60)
+            self.screenMessage(abcd[2],self.black, -30)
+            self.screenMessage(abcd[3],self.black,  0)
 
             pygame.display.update()
 
@@ -175,12 +175,12 @@ class Question():
 
         while not gameExit:
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
-            self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
+            self.screenMessage("ÞÚ VANNST!", self.black, -50, size = "large")
             pygame.display.update()
             if gameWin == True:
                 self.gameDisplay.blit(self.image, [0,0, 800, 600])
-                self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
-                self.screenMessage("Ýttu á s til ad spila aftur, h til ad hætta, n fyrir næsta borð ", self.red, 50, size = "small")
+                self.screenMessage("ÞÚ VANNST!", self.black, -50, size = "large")
+                self.screenMessage("Ýttu á s til ad spila aftur, h til ad hætta, n fyrir næsta borð ", self.black, 50, size = "small")
                 pygame.display.update()
 
                 while gameWin == True:
