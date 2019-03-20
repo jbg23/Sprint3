@@ -13,11 +13,13 @@ class Inngangur:
     #Myndir
     mynd = pygame.image.load('mikkimina_valmynd.png')
     bakg_mynd = pygame.image.load('volundur_opnun.png')
+    saga_mynd = pygame.image.load('sogubakgrunnur.png')
 
     #Litir
     BLACK = (0, 0, 0)
     GRAY = (211,211,211)
     RED = (255, 0, 0)
+    WHITE = (255,255,255)
 
     def __init__(self):
         pass
@@ -48,31 +50,62 @@ class Inngangur:
     def picture2(self):
         Mikkimina = pygame.transform.scale(self.mynd,self.size)
         self.gameDisplay.blit(Mikkimina,(0,0))
+
+    def picture3(self):
+        Sogubakgr = pygame.transform.scale(self.saga_mynd, self.size)
+        self.gameDisplay.blit(Sogubakgr,(0,0))
     #Game start level board
     def leikurIntro(self):
         self.picture()
-        self.messageDisplayLevel('Völundarmús',2)
-        self.takkar("Hefja Leik",337,450,150,75,self.GRAY,self.RED,'Byrja')
+        self.messageDisplayLevel('Völundarmús',3)
+        self.takkar("Hefja Leik",150,340,150,75,self.BLACK,self.GRAY,'Byrja')
+        self.takkar("Um leikinn", 550, 340, 150, 75, self.BLACK, self.GRAY, 'About')
     #Level 1 board
     def level1Intro(self):
         self.picture()
-        self.messageDisplayLevel('Velkomin/nn í völundarmús leikinn!', 4.5)
-        self.messageDisplayLevel('Viltu velja leikmann?', 3)
-        self.takkar("Já!",150,400,150,75,self.GRAY,self.RED,'Velja leikmann')
-        self.takkar("Nei",550,400,150,75,self.GRAY,self.RED,'quit')
+        self.messageDisplayLevel2('Velkomin/nn í völundarmús leikinn!', -800)
+        self.messageDisplayLevel2('Viltu velja leikmann?', -600)
+        self.takkar("Já!",150,420,150,75,self.BLACK ,self.GRAY,'Velja leikmann')
+        self.takkar("Nei",500,420,150,75,self.BLACK,self.GRAY,'quit')
     #Val á leikmanni
     def velja_leikmann(self):
         self.picture2()
-        self.messageDisplayLevel('Viltu vera Mikki eða Mína?', 8)
-        self.takkar("Mikki",150,495,150,75,self.GRAY,self.RED,'mikki mús')
-        self.takkar("Mína",500,495,150,75,self.GRAY,self.RED,'mína mús')
+        self.messageDisplayLevel2('Viltu vera Mikki eða Mína?', -1100)
+        self.takkar("Mikki",150,496,150,75,self.BLACK,self.GRAY,'mikki mús')
+        self.takkar("Mína",500,496,150,75,self.BLACK,self.GRAY,'mína mús')
+
+    def umLeikinn(self):
+        self.picture3()
+        self.messageDisplayLevel1('Velkomin/nn í Völundarmús-leikinn!', -1000)
+        self.messageDisplayLevel1('Þú velur þér leikmann til að vera í gegnum leikinn,', -900)
+        self.messageDisplayLevel1('Mikki mús eða Mína mús.', -800)
+        self.messageDisplayLevel1('   Til að sigra þarft þú að komast í gegnum völundarhúsið.', -700)
+        self.messageDisplayLevel1('Á leiðinni þarft þú að klára ýmsar þrautir sem á vegi þínum verða.', -600)
+        self.messageDisplayLevel1('Gangi þér vel!', -500)
+        self.takkar("Til baka",337,450,150,75,self.GRAY,self.RED,'tilbaka')
     #Birta texta
     def messageDisplayLevel(self,text,lina):
-        introtexti = pygame.font.Font('Boogaloo.ttf', 60)
-        litur0 = self.RED
+        introtexti = pygame.font.Font('Boogaloo.ttf', 100)
+        litur0 = self.BLACK
         self.textSurf, self.textRect = self.textObjectsBlack(text, introtexti,litur0)
         self.textRect.center = ((self.breidd/2),(self.haed/lina))
         self.gameDisplay.blit(self.textSurf, self.textRect)
+
+    def messageDisplayLevel1(self,text,haed):
+        introtexti = pygame.font.Font('Boogaloo.ttf', 30)
+        litur0 = self.WHITE
+        self.textSurf, self.textRect = self.textObjectsBlack(text, introtexti,litur0)
+        self.textRect.center = ((self.breidd/2),(haed/2)+self.haed)
+        self.gameDisplay.blit(self.textSurf, self.textRect)
+
+    def messageDisplayLevel2(self,text,haed):
+        introtexti = pygame.font.Font('Boogaloo.ttf', 50)
+        litur0 = self.BLACK
+        self.textSurf, self.textRect = self.textObjectsBlack(text, introtexti,litur0)
+        self.textRect.center = ((self.breidd/2),(haed/2)+self.haed)
+        self.gameDisplay.blit(self.textSurf, self.textRect)
+
+
     #Hjálparfall fyrir takka
     def textObjectsBlack(self,text, font, litur0):
         textSurface = font.render(text, True, litur0)
@@ -92,6 +125,10 @@ class Inngangur:
                 elif action == 'Velja leikmann':
                     self.velja_leikmann()
                     self.level = 2
+                elif action == 'About':
+                    #self.umLeikinn()
+                    self.level = 3
+                    return
                 elif action == 'quit':
                     self.level= 0
                 elif action == "mikki mús":
@@ -104,10 +141,12 @@ class Inngangur:
                     bord5 = Question(self,self.leikmadur)
                     bord5.spurningaIntro()
                     bord5.gameLoop()
+                elif action == 'tilbaka':
+                    self.level = 0
         else:
             pygame.draw.rect(self.gameDisplay, litur1,(x,y,breidd,haed))
 
-        litur0= self.BLACK
+        litur0= self.WHITE
         takkar2 = pygame.font.Font('Raleway.ttf', 30)
         textSurf, textRect = self.textObjectsBlack(text, takkar2, litur0)
         textRect.center = ((x+(breidd/2)),(y+(haed/2)))
@@ -134,6 +173,8 @@ class Inngangur:
                 #self.music('tonlist.mp3')
                 #state_tune=2
                 self.velja_leikmann()
+            elif self.level == 3:
+                self.umLeikinn()
             pygame.display.update()
             pygame.display.flip()
 

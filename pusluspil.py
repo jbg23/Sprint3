@@ -195,14 +195,14 @@ class Pusluspil:
             pygame.display.update()
 
     def puslSigur(self):
-        display = pygame.display.set_mode((750, 500))
+        display = pygame.display.set_mode((800, 600))
         pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Sigur")
-        self.gameDisplay.blit(self.sigurmynd, [0,0, 750, 500])
-        self.screenMessage("TIL HAMINGJU", self.blue, -90, size = "large" )
-        self.screenMessage("ÞÚ VANNST LEIKINN", self.blue, -40, size = "large" )
-        self.screenMessage("Ýttu á h til að hætta,", self.blue, +20, size = "small")
-        self.screenMessage("s til að spila aftur eða n til að byrja leikinn upp á nýtt,", self.blue, +40, size = "small")
+        self.gameDisplay.blit(self.sigurmynd, [0,0, 800, 600])
+        self.screenMessage("TIL HAMINGJU", self.black, -90, size = "large" )
+        self.screenMessage("ÞÚ VANNST LEIKINN", self.black, -40, size = "large" )
+        self.screenMessage("Ýttu á h til að hætta,", self.black, +20, size = "small")
+        self.screenMessage("s til að spila aftur eða n til að byrja leikinn upp á nýtt,", self.black, +40, size = "small")
         pygame.display.update()
 
         self.stig=5

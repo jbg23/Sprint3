@@ -34,7 +34,7 @@ class Eltingaleikur:
     svartur = pygame.Color(0,0,0)
 
     #bakgrunnsmynd
-    bakgrunnslitur = pygame.image.load("graenn.png")
+    bakgrunnslitur = pygame.image.load("blar.png")
 
     #Mynd af pepperoni sem færist
     pepp_mynd = pygame.image.load("pepperoni.png")
@@ -187,8 +187,8 @@ class Eltingaleikur:
         self.bakgrunnur.blit(skrift_bakg , Srect)
 
     def gameOver(self):
-        self.screenMessage("Þú tapaðir!", self.red, -40, size = "medium")
-        self.screenMessage("Ýttu á hvaða takka sem er til að byrja aftur", self.red, -10, size = "small")
+        self.screenMessage("Þú tapaðir!", self.black, -40, size = "medium")
+        self.screenMessage("Ýttu á hvaða takka sem er til að byrja aftur", self.black, -10, size = "small")
         self.stigafjoldi(0)
         pygame.display.flip()
         event = pygame.event.wait()
@@ -228,13 +228,13 @@ class Eltingaleikur:
                         pygame.quit()
                         sys.exit()
             display = pygame.display.set_mode((500, 500))
-            self.bakgrunnur.fill(self.graenn)
+            self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
             pygame.display.set_caption("Safnaðu pepperóníunum!")
-            self.screenMessage("Velkomin/nn i eltingaleik", self.blue, -120, size = "medium" )
-            self.screenMessage("völundarmúsarinnar", self.blue, -70, size = "medium" )
-            self.screenMessage("Safnaðu 5 pepperóníum", self.blue, +20, size = "small")
-            self.screenMessage("en passaðu þig á köttunum!", self.blue, +50, size = "small")
-            self.screenMessage("Ýttu á 1 til að byrja", self.blue, +80, size = "small")
+            self.screenMessage("Velkomin/nn i eltingaleik", self.black, -120, size = "medium" )
+            self.screenMessage("völundarmúsarinnar", self.black, -70, size = "medium" )
+            self.screenMessage("Safnaðu 5 pepperóníum", self.black, +20, size = "small")
+            self.screenMessage("en passaðu þig á köttunum!", self.black, +50, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.black, +80, size = "small")
             pygame.display.update()
 
     def byrja(self):
@@ -302,7 +302,7 @@ class Eltingaleikur:
             elif self.leikmadur == 1:
                 valin_mus = self.minaMus
             #Setjum myndir, mús og pepperoni á bakgrunn
-            self.bakgrunnur.fill(self.graenn)
+            self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
             self.bakgrunnur.blit(valin_mus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
             self.bakgrunnur.blit(self.pepp_mynd, pygame.Rect(self.pepperoni_stadsetning[0], self.pepperoni_stadsetning[1], 20, 20))
             self.bakgrunnur.blit(self.tommi, pygame.Rect(self.kisa1[0], self.kisa1[1], 40, 40))
@@ -332,9 +332,9 @@ class Eltingaleikur:
 
     def pacSigur(self):
         self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
-        self.screenMessage("ÞÚ VANNST!", self.red, -50, size = "large")
-        self.screenMessage("Ýttu á s til ad spila aftur,", self.red, 50, size = "small")
-        self.screenMessage("h til ad hætta, n fyrir næsta borð ", self.red, 70, size = "small")
+        self.screenMessage("ÞÚ VANNST!", self.black, -50, size = "large")
+        self.screenMessage("Ýttu á s til ad spila aftur,", self.black, 50, size = "small")
+        self.screenMessage("h til ad hætta, n fyrir næsta borð ", self.black, 70, size = "small")
         pygame.display.update()
 
         while self.stig == 5:
