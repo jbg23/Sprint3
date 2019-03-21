@@ -11,7 +11,7 @@ class TestSpurningaleikur(unittest.TestCase):
         self.func= Question(1,0)"""
 
     def test_2(self):
-        self.assertEqual(quest.leikmadur, 1)
+        self.assertEqual(quest.leikmadur, 0)
 
 if __name__ == '__main__':
     unittest.main()
