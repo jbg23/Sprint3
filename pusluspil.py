@@ -1,7 +1,9 @@
 import sys
 import random
 import pygame
+#import inngangsgrafik_rett
 #from inngangsgrafik_rett import Inngangur
+#import Inngangur()
 pygame.init()
 
 class Pusluspil:
@@ -196,6 +198,9 @@ class Pusluspil:
             pygame.display.update()
 
     def puslSigur(self):
+
+        from inngangsgrafik_rett import Inngangur
+
         display = pygame.display.set_mode((800, 600))
         pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Sigur")
@@ -231,9 +236,9 @@ class Pusluspil:
                         gameWin = False
                         pygame.mixer.music.stop()
                         #Setja inn sigurmynd
-                        bord0 = Inngangur()
+                        #bord0 = inngangsgrafik_rett.Inngangur()
+                        bord0=Inngangur()
                         bord0.byrja()
-
 
 def main():
     pass
