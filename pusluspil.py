@@ -2,6 +2,8 @@ import sys
 import random
 import pygame
 #from inngangsgrafik_rett import Inngangur
+#import inngangsgrafik_rett
+import Inngangur
 pygame.init()
 
 class Pusluspil:
@@ -231,9 +233,9 @@ class Pusluspil:
                         gameWin = False
                         pygame.mixer.music.stop()
                         #Setja inn sigurmynd
+                        bord0 = inngangsgrafik_rett.Inngangur()
                         bord0 = Inngangur()
                         bord0.byrja()
-
 
 def main():
     pass
