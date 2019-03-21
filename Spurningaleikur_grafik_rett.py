@@ -16,8 +16,7 @@ class Question():
         self.c.execute('CREATE TABLE IF NOT EXISTS Spurningar(SpID INT PRIMARY KEY,spurning TEXT, rettSvar CHAR, level INT)')
         self.c.execute('CREATE TABLE IF NOT EXISTS Svor(SvID INT PRIMARY KEY, svor TEXT, rettSvar CHAR)')
 
-    black = (0, 0, 0)
-    red = (255,0,0)
+    black = (0, 0, 0)´
     green = (0,255,0)
 
     small = pygame.font.SysFont("algerian", 35)
