@@ -203,7 +203,7 @@ class Pusluspil:
         self.screenMessage("TIL HAMINGJU", self.black, -90, size = "large" )
         self.screenMessage("ÞÚ VANNST LEIKINN", self.black, -40, size = "large" )
         self.screenMessage("Ýttu á h til að hætta,", self.black, +20, size = "small")
-        self.screenMessage("s til að spila aftur eða n til að byrja leikinn upp á nýtt,", self.black, +40, size = "small")
+        self.screenMessage("s til að spila aftur eða b til að byrja leikinn upp á nýtt,", self.black, +40, size = "small")
         pygame.display.update()
 
         self.stig=5
@@ -227,7 +227,7 @@ class Pusluspil:
                         naesta.puslIntro()
                         naesta.pusluspilrun()
 
-                    if event.key == pygame.K_n:
+                    if event.key == pygame.K_b:
                         gameWin = False
                         pygame.mixer.music.stop()
                         #Setja inn sigurmynd
