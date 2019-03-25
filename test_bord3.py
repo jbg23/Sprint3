@@ -6,8 +6,7 @@ from pusluspil import Pusluspil
 bord4=Eltingaleikur()
 bord4.pacIntro()
 bord4.byrja()
-#ord4.pacSigur()
-
+bord4.pacSigur()
 """
 """
 bord2 = Pusluspil()
