@@ -171,6 +171,7 @@ class Pusluspil:
         pygame.quit()
 
     def puslIntro(self):
+        self.music('tonlist.mp3')
         pygame.init()
         intro = True
         while intro:
@@ -198,6 +199,7 @@ class Pusluspil:
             pygame.display.update()
 
     def puslSigur(self):
+        self.music('tonlist.mp3')
 
         from inngangsgrafik_rett import Inngangur
 
